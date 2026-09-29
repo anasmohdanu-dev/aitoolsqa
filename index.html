@@ -288,7 +288,8 @@
     }
 
     /* Section Styling */
-    .section { scroll-margin-top: 90px;
+    .section { 
+      scroll-margin-top: 90px;
       padding: 72px 0;
     }
     .section-title {
@@ -378,17 +379,58 @@
       color: white;
     }
 
-    /* DEDICATED EMBEDDED PORTAL CARD (NO MODAL, 100% RELIABLE) */
-    .portal-box {
+    /* Portal Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 999999;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+    .modal-overlay.active {
+      display: flex !important;
+    }
+    .modal-card {
       background: var(--white);
-      border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 40px 32px;
-      box-shadow: var(--shadow-lg);
-      margin: 0 auto;
+      max-width: 840px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 32px 28px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #F1F5F9;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .modal-close:hover {
+      background: #E2E8F0;
+      color: var(--dark);
     }
 
-    /* Tabs */
     .portal-tabs {
       display: flex;
       gap: 12px;
@@ -465,7 +507,6 @@
       min-height: 70px;
     }
 
-    /* Live Affiliate Dashboard Styles */
     .dashboard-header {
       display: flex;
       justify-content: space-between;
@@ -509,7 +550,6 @@
       background: #334155;
     }
 
-    /* KPI Metrics Grid */
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -553,7 +593,6 @@
       color: #1E40AF;
     }
 
-    /* Database Table View */
     .table-container {
       width: 100%;
       overflow-x: auto;
@@ -600,7 +639,6 @@
       color: #3730A3;
     }
 
-    /* Action Buttons in tables */
     .btn-action {
       background: #EEF2FF;
       color: var(--primary);
@@ -631,7 +669,6 @@
       background: #FECACA;
     }
 
-    /* Export Buttons Toolbar */
     .admin-export-toolbar {
       display: flex;
       flex-wrap: wrap;
@@ -656,7 +693,6 @@
       background: #334155;
     }
 
-    /* Card Panels in Admin */
     .admin-card-panel {
       background: #F8FAFC;
       border: 1px solid var(--border);
@@ -670,7 +706,6 @@
       color: var(--dark);
     }
 
-    /* FAQ */
     .faq-card {
       background: white;
       border: 1px solid var(--border);
@@ -687,7 +722,6 @@
       font-size: 0.95rem;
     }
 
-    /* Footer */
     footer {
       border-top: 1px solid var(--border);
       padding: 40px 0 100px;
@@ -704,7 +738,6 @@
       display: inline-block;
     }
 
-    /* Floating WhatsApp Button */
     .floating-whatsapp {
       position: fixed;
       bottom: 80px;
@@ -736,7 +769,6 @@
       fill: currentColor;
     }
 
-    /* Notification Toast */
     #toast-msg {
       position: fixed;
       bottom: 24px;
@@ -775,59 +807,6 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
-  
-    /* Fullscreen Modal Overlay */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(8px);
-      z-index: 999999;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-      box-sizing: border-box;
-    }
-    .modal-overlay.active {
-      display: flex !important;
-    }
-    .modal-card {
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      max-width: 840px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 32px 28px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      position: relative;
-    }
-    .modal-close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: #F1F5F9;
-      border: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      font-size: 1.3rem;
-      cursor: pointer;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-    .modal-close:hover {
-      background: #E2E8F0;
-      color: var(--dark);
-    }
-
   </style>
 </head>
 <body>
@@ -858,7 +837,6 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="container">
-        <!-- Main Product & WhatsApp Checkout Card -->
         <div class="checkout-card">
           <div class="checkout-header">
             <div>
@@ -887,7 +865,7 @@
       </div>
     </section>
 
-    <!-- Guide Curriculum / Features Grid -->
+    <!-- Features Grid -->
     <section class="section">
       <div class="container">
         <div class="section-title" style="max-width: 900px; width: 100%;">
@@ -896,7 +874,6 @@
         </div>
 
         <div class="features-grid" id="features-container">
-          <!-- Dynamically populated from Google Sheet database -->
           <div class="feature-card"><span class="feature-icon">🌊</span><h3>Google Flow</h3><p>Explore AI-powered tools for creating and developing visual content.</p></div>
           <div class="feature-card"><span class="feature-icon">🎬</span><h3>Veo 3 & Omni Flash</h3><p>Create impressive AI-generated videos from your ideas and prompts.</p></div>
           <div class="feature-card"><span class="feature-icon">🍌</span><h3>Nano Banana Pro</h3><p>Create and edit images using advanced AI image-generation capabilities.</p></div>
@@ -921,440 +898,431 @@
       </div>
     </section>
 
-    <!-- DEDICATED EMBEDDED AFFILIATE & ADMIN PORTAL SECTION (100% RELIABLE ON-PAGE) -->
-    
-  <!-- AFFILIATE & ADMIN PORTAL MODAL (100% RELIABLE POPUP) -->
-  <div class="modal-overlay" id="affiliate-modal" style="display:none;">
-    <div class="modal-card">
-      <button type="button" class="modal-close" id="close-modal-btn" onclick="closeAffiliateModal()">&times;</button>
-      <div style="margin-bottom: 20px;">
-        <h2 style="font-size: 1.5rem; margin-bottom: 4px;">🤝 Affiliate &amp; Admin Portal</h2>
-        <p style="color: var(--text-muted); font-size: 0.88rem;">Creator partner dashboard &amp; store database management</p>
-      </div>
-      
-          <!-- Navigation Tabs -->
-          <div class="portal-tabs">
-            <button type="button" class="portal-tab-btn active" id="tab-creator-btn" onclick="openAffiliateModal('creator')">Creator Dashboard</button>
-            <button type="button" class="portal-tab-btn" id="tab-admin-btn" onclick="openAffiliateModal('admin')">Store Admin / Database Control</button>
-          </div>
-
-          <!-- VIEW 1: REGISTRATION & LOGIN (Logged Out State) -->
-          <div id="affiliate-auth-view">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px;">
-              <h3 id="auth-title" style="font-size: 1.4rem;">Creator Registration</h3>
-              <button type="button" id="toggle-auth-btn" style="background:none; border:none; color:var(--primary); font-weight:600; cursor:pointer; font-size:0.85rem;" onclick="toggleAuthMode()">Already have an account? Log In</button>
-            </div>
-
-            <!-- Register Form -->
-            <form id="affiliate-register-form">
-              <div class="form-group">
-                <label for="aff-name">Full Name or Channel Name</label>
-                <input type="text" id="aff-name" class="form-control" placeholder="e.g. Alex Tech Reviews" required />
-              </div>
-              <div class="form-group">
-                <label for="aff-phone">Your WhatsApp Number (for Payouts)</label>
-                <input type="text" id="aff-phone" class="form-control" placeholder="e.g. +974 1234 ****" required />
-              </div>
-              <div class="form-group">
-                <label for="aff-code">Desired Referral Code</label>
-                <input type="text" id="aff-code" class="form-control" placeholder="e.g. ALEX20" required pattern="[A-Za-z0-9_-]+" title="Letters and numbers only" />
-                <small style="color: var(--text-muted); font-size: 0.8rem; margin-top: 4px; display: block;">This code will be embedded in your unique link.</small>
-              </div>
-              <div class="form-group">
-                <label for="aff-pin">Set 4-Digit Security PIN (for Logging in)</label>
-                <input type="password" id="aff-pin" class="form-control" placeholder="4-digit PIN (e.g. 1234)" maxlength="4" pattern="\d{4}" inputmode="numeric" required />
-                <small style="color: var(--text-muted); font-size: 0.8rem; margin-top: 4px; display: block;">Remember this 4-digit PIN to access your dashboard anytime.</small>
-              </div>
-              <button type="submit" class="btn-whatsapp-checkout" style="font-size: 1rem; padding: 14px;">
-                Create Account & Enter Dashboard
-              </button>
-            </form>
-
-            <!-- Login Form -->
-            <form id="affiliate-login-form" style="display: none;">
-              <div class="form-group">
-                <label for="login-code">Your Referral Code</label>
-                <input type="text" id="login-code" class="form-control" placeholder="e.g. ALEX20" required />
-              </div>
-              <div class="form-group">
-                <label for="login-pin">Your 4-Digit Security PIN</label>
-                <input type="password" id="login-pin" class="form-control" placeholder="Enter your 4-digit PIN" maxlength="4" pattern="\d{4}" inputmode="numeric" required />
-              </div>
-              <button type="submit" class="btn-whatsapp-checkout" style="font-size: 1rem; padding: 14px;">
-                Log In to Affiliate Dashboard
-              </button>
-            </form>
-          </div>
-
-          <!-- VIEW 2: LOGGED IN AFFILIATE DASHBOARD -->
-          <div id="affiliate-dash-view" style="display: none;">
-            <div class="dashboard-header">
-              <div>
-                <h3 style="font-size: 1.35rem;">Creator Affiliate Dashboard</h3>
-                <p style="color: var(--text-muted); font-size: 0.88rem;">Welcome back, <strong id="dash-user-name">Creator</strong> | Code: <strong style="color:var(--primary);" id="dash-user-code">CODE</strong></p>
-              </div>
-              <button type="button" id="logout-affiliate-btn" style="background: none; border: none; color: #EF4444; font-weight: 600; cursor: pointer; font-size: 0.85rem;" onclick="logoutAffiliate()">Logout</button>
-            </div>
-
-            <!-- Referral Link Generator Box -->
-            <div class="affiliate-link-display">
-              <label style="font-size: 0.85rem; font-weight: 700; color: var(--dark); display: block; margin-bottom: 8px;">YOUR UNIQUE REFERRAL LINK:</label>
-              <div class="affiliate-url-box" id="user-referral-link">
-                🚀 Get Google AI Pro (18 months package) with 5TB storage. Veo 3, Omni Flash, Nano Banana Pro, NotebookLM Pro & more — all for just QAR 49 for 18 months! 🔥 Activate it on your own Google account. 👇
-                <br><br>
-                <strong>Referral Link:</strong><br>
-                https://.../?ref=CODE</div>
-              <button type="button" class="btn-copy" id="copy-ref-link-btn">📋 Copy Referral Link</button>
-              <span id="copy-success-msg" style="display: none; color: #10B981; font-weight: 600; font-size: 0.85rem; margin-left: 10px;">Copied!</span>
-            </div>
-
-            <!-- Live KPI Metrics from Google Sheet -->
-            <div class="kpi-grid">
-              <div class="kpi-card">
-                <div class="kpi-title">Confirmed Sales</div>
-                <div class="kpi-value" id="kpi-sales-count">0</div>
-                <span class="kpi-badge badge-blue">Verified Orders</span>
-              </div>
-              <div class="kpi-card">
-                <div class="kpi-title">Total Revenue</div>
-                <div class="kpi-value" id="kpi-total-revenue">QAR 0</div>
-                <span class="kpi-badge badge-blue">Sales Volume</span>
-              </div>
-              <div class="kpi-card">
-                <div class="kpi-title">Commission</div>
-                <div class="kpi-value" style="color: var(--primary);" id="kpi-commission-earned">QAR 0</div>
-                <span class="kpi-badge badge-green">Your Share</span>
-              </div>
-              <div class="kpi-card">
-                <div class="kpi-title">Payout Status</div>
-                <div class="kpi-value" style="font-size: 1.15rem; margin-top: 4px;" id="kpi-payout-status">Active</div>
-                <span class="kpi-badge badge-green" id="kpi-balance-due">QAR 0 Due</span>
-              </div>
-            </div>
-
-            <!-- Sales & Commissions Breakdown Table -->
-            <h4 style="font-size: 1rem; margin-bottom: 12px; color: var(--dark);">Your Sales & Commission Breakdown</h4>
-            <div class="table-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Order ID</th>
-                    <th>Product</th>
-                    <th>Sale Amount</th>
-                    <th>Your Commission</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody id="affiliate-sales-tbody">
-                  <!-- Dynamically populated from Google Sheet -->
-                </tbody>
-              </table>
-            </div>
-
-            <!-- Request Payout Action -->
-            <button type="button" id="payout-request-btn" class="btn-whatsapp-checkout" style="background: var(--dark); font-size: 0.95rem; padding: 14px 20px;">
-              💳 Request Commission Payout via WhatsApp
-            </button>
-          </div>
-
-          <!-- VIEW 3: STORE OWNER / ADMIN DATABASE CONTROL -->
-          <div id="admin-panel-view" style="display: none;">
-            <div id="admin-login-box">
-              <h3 style="font-size: 1.3rem; margin-bottom: 8px;">Store Owner Access</h3>
-              <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px;">
-                Enter your secret admin PIN to manage website content, products, and sales records stored in your Google Sheet database.
-              </p>
-              <div class="form-group">
-                <label for="admin-pin-input">Admin PIN</label>
-                <input type="password" id="admin-pin-input" class="form-control" placeholder="Enter PIN" />
-              </div>
-              <button type="button" id="admin-submit-btn" class="btn-whatsapp-checkout" style="font-size: 0.95rem; padding: 12px;" onclick="submitAdminLogin()">Unlock Admin Dashboard</button>
-            </div>
-
-            <!-- Admin Dashboard when authenticated -->
-            <div id="admin-dashboard-box" style="display: none;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <h3 style="font-size: 1.3rem;">Store & Database Control Center</h3>
-                <button type="button" id="admin-lock-btn" style="background: none; border: none; color: #EF4444; font-weight: 600; cursor: pointer; font-size: 0.85rem;" onclick="lockAdminDashboard()">Lock Admin</button>
-              </div>
-
-              <!-- Admin Subnavigation Tabs for Content & Data Management -->
-              <div class="admin-subtabs">
-                <button type="button" class="admin-subtab-btn active" onclick="switchAdminTab('sales', this)">📦 Sales & Orders</button>
-                <button type="button" class="admin-subtab-btn" onclick="switchAdminTab('products', this)">🏷️ Products Content</button>
-                <button type="button" class="admin-subtab-btn" onclick="switchAdminTab('features', this)">⚡ Features / Inclusions</button>
-                <button type="button" class="admin-subtab-btn" onclick="switchAdminTab('faqs', this)">❓ FAQs Content</button>
-                <button type="button" class="admin-subtab-btn" onclick="switchAdminTab('settings', this)">⚙️ Site Settings & PIN</button>
-                <button type="button" class="admin-subtab-btn" onclick="switchAdminTab('affiliates', this)">👥 Affiliates</button>
-              </div>
-
-              <!-- SUBTAB 1: SALES & ORDERS -->
-              <div id="admin-subtab-sales">
-                <div class="admin-export-toolbar">
-                  <button type="button" id="btn-export-sales" class="btn-export">
-                    📊 Download Sales Data (Spreadsheet)
-                  </button>
-                  <button type="button" id="btn-export-commissions" class="btn-export">
-                    👥 Download Affiliate Payout Data (Spreadsheet)
-                  </button>
-                </div>
-                
-                <div class="admin-card-panel">
-                  <h4>➕ Record Completed WhatsApp Sale</h4>
-                  <form id="record-sale-form">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
-                      <div class="form-group" style="margin-bottom: 10px;">
-                        <label for="sale-aff-code">Affiliate Code</label>
-                        <input type="text" id="sale-aff-code" class="form-control" placeholder="e.g. ALEX20" required />
-                      </div>
-                      <div class="form-group" style="margin-bottom: 10px;">
-                        <label for="sale-customer-phone">Customer Phone Number</label>
-                        <input type="text" id="sale-customer-phone" class="form-control" placeholder="e.g. +974 1234 xxxx" required />
-                      </div>
-                      <div class="form-group" style="margin-bottom: 10px;">
-                        <label for="sale-amount">Sale Amount (QAR)</label>
-                        <input type="number" id="sale-amount" class="form-control" value="49" required />
-                      </div>
-                      <div class="form-group" style="margin-bottom: 10px;">
-                        <label for="sale-rate">Commission %</label>
-                        <input type="number" id="sale-rate" class="form-control" value="20" required />
-                      </div>
-                    </div>
-                    <button type="submit" class="btn-whatsapp-checkout" style="font-size: 0.9rem; padding: 10px; margin-top: 6px;">
-                      Save Sale to Google Sheets & Update Affiliate
-                    </button>
-                  </form>
-                </div>
-
-                <h4 style="font-size: 0.95rem; margin-bottom: 10px;">All Database Sales Records</h4>
-                <div class="table-container">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Date</th>
-                        <th>Order ID</th>
-                        <th>Affiliate Code</th>
-                        <th>Customer Phone</th>
-                        <th>Amount</th>
-                        <th>Commission</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody id="admin-sales-tbody">
-                      <!-- Loaded from Google Sheets -->
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <!-- SUBTAB 2: PRODUCTS MANAGER -->
-              <div id="admin-subtab-products" style="display: none;">
-                <div class="admin-card-panel">
-                  <h4 id="prod-form-title">➕ Add / Update Digital Product</h4>
-                  <form id="admin-product-form">
-                    <input type="hidden" id="prod-id" value="" />
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
-                      <div class="form-group">
-                        <label for="prod-name">Product Name</label>
-                        <input type="text" id="prod-name" class="form-control" placeholder="e.g. Gemini Pro" required />
-                      </div>
-                      <div class="form-group">
-                        <label for="prod-price">Current Price</label>
-                        <input type="number" id="prod-price" class="form-control" placeholder="49" required />
-                      </div>
-                      <div class="form-group">
-                        <label for="prod-orig-price">Original Price</label>
-                        <input type="number" id="prod-orig-price" class="form-control" placeholder="1113" required />
-                      </div>
-                      <div class="form-group">
-                        <label for="prod-curr">Currency</label>
-                        <input type="text" id="prod-curr" class="form-control" value="QAR" required />
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="prod-tagline">Tagline / Included Specs</label>
-                      <textarea id="prod-tagline" class="form-control" placeholder="18 months Validity . Veo3 & Omni flash ..."></textarea>
-                    </div>
-                    <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
-                      <input type="checkbox" id="prod-active" checked style="width: 18px; height: 18px;" />
-                      <label for="prod-active" style="margin-bottom: 0; cursor: pointer;">Active on Website</label>
-                    </div>
-                    <div style="display: flex; gap: 10px; margin-top: 10px;">
-                      <button type="submit" class="btn-whatsapp-checkout" style="font-size: 0.9rem; padding: 10px;">Save Product to Website</button>
-                      <button type="button" id="btn-cancel-edit-prod" class="btn-export" style="background:#64748B; display:none;">Cancel</button>
-                    </div>
-                  </form>
-                </div>
-
-                <h4 style="font-size: 0.95rem; margin-bottom: 10px;">Existing Products</h4>
-                <div class="table-container">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Current Price</th>
-                        <th>Original Price</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody id="admin-products-tbody"></tbody>
-                  </table>
-                </div>
-              </div>
-
-              <!-- SUBTAB 3: FEATURES MANAGER -->
-              <div id="admin-subtab-features" style="display: none;">
-                <div class="admin-card-panel">
-                  <h4 id="feat-form-title">➕ Add / Update Feature / Inclusion Item</h4>
-                  <form id="admin-feature-form">
-                    <input type="hidden" id="feat-id" value="" />
-                    <div style="display: grid; grid-template-columns: 80px 1fr 100px; gap: 12px;">
-                      <div class="form-group">
-                        <label for="feat-icon">Icon</label>
-                        <input type="text" id="feat-icon" class="form-control" placeholder="⚡" required />
-                      </div>
-                      <div class="form-group">
-                        <label for="feat-title">Title</label>
-                        <input type="text" id="feat-title" class="form-control" placeholder="e.g. Veo 3 Video" required />
-                      </div>
-                      <div class="form-group">
-                        <label for="feat-order">Order</label>
-                        <input type="number" id="feat-order" class="form-control" value="1" required />
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="feat-desc">Description</label>
-                      <textarea id="feat-desc" class="form-control" placeholder="Detailed description of what the user receives..." required></textarea>
-                    </div>
-                    <div style="display: flex; gap: 10px; margin-top: 10px;">
-                      <button type="submit" class="btn-whatsapp-checkout" style="font-size: 0.9rem; padding: 10px;">Save Feature Item</button>
-                      <button type="button" id="btn-cancel-edit-feat" class="btn-export" style="background:#64748B; display:none;">Cancel</button>
-                    </div>
-                  </form>
-                </div>
-
-                <h4 style="font-size: 0.95rem; margin-bottom: 10px;">Current Features on Page</h4>
-                <div class="table-container">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Order</th>
-                        <th>Icon</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody id="admin-features-tbody"></tbody>
-                  </table>
-                </div>
-              </div>
-
-              <!-- SUBTAB 4: FAQS MANAGER -->
-              <div id="admin-subtab-faqs" style="display: none;">
-                <div class="admin-card-panel">
-                  <h4 id="faq-form-title">➕ Add / Update Frequently Asked Question</h4>
-                  <form id="admin-faq-form">
-                    <input type="hidden" id="faq-id" value="" />
-                    <div style="display: grid; grid-template-columns: 1fr 100px; gap: 12px;">
-                      <div class="form-group">
-                        <label for="faq-question">Question</label>
-                        <input type="text" id="faq-question" class="form-control" placeholder="e.g. Can I use my own Gmail?" required />
-                      </div>
-                      <div class="form-group">
-                        <label for="faq-order">Order</label>
-                        <input type="number" id="faq-order" class="form-control" value="1" required />
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="faq-answer">Answer</label>
-                      <textarea id="faq-answer" class="form-control" placeholder="Clear answer to the customer's question..." required></textarea>
-                    </div>
-                    <div style="display: flex; gap: 10px; margin-top: 10px;">
-                      <button type="submit" class="btn-whatsapp-checkout" style="font-size: 0.9rem; padding: 10px;">Save FAQ Item</button>
-                      <button type="button" id="btn-cancel-edit-faq" class="btn-export" style="background:#64748B; display:none;">Cancel</button>
-                    </div>
-                  </form>
-                </div>
-
-                <h4 style="font-size: 0.95rem; margin-bottom: 10px;">Existing FAQs</h4>
-                <div class="table-container">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Order</th>
-                        <th>Question</th>
-                        <th>Answer</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody id="admin-faqs-tbody"></tbody>
-                  </table>
-                </div>
-              </div>
-
-              <!-- SUBTAB 5: SETTINGS & ADMIN PIN -->
-              <div id="admin-subtab-settings" style="display: none;">
-                <div class="admin-card-panel">
-                  <h4>⚙️ Website Settings & Admin Credentials (Stored in Google Sheet)</h4>
-                  <form id="admin-settings-form">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
-                      <div class="form-group">
-                        <label for="setting-site-name">Store Name</label>
-                        <input type="text" id="setting-site-name" class="form-control" value="AiToolsQA" required />
-                      </div>
-                      <div class="form-group">
-                        <label for="setting-wa-phone">WhatsApp Phone Number (with Country Code)</label>
-                        <input type="text" id="setting-wa-phone" class="form-control" value="97477429956" required />
-                      </div>
-                      <div class="form-group">
-                        <label for="setting-comm-rate">Default Commission Rate (%)</label>
-                        <input type="number" id="setting-comm-rate" class="form-control" value="20" required />
-                      </div>
-                      <div class="form-group">
-                        <label for="setting-admin-pin">Update Admin PIN (Stored securely in Sheet)</label>
-                        <input type="password" id="setting-admin-pin" class="form-control" placeholder="New PIN (leave blank to keep current)" />
-                      </div>
-                    </div>
-                    <button type="submit" class="btn-whatsapp-checkout" style="font-size: 0.9rem; padding: 10px; margin-top: 10px;">
-                      Update Settings in Google Sheet
-                    </button>
-                  </form>
-                </div>
-              </div>
-
-              <!-- SUBTAB 6: AFFILIATES LIST -->
-              <div id="admin-subtab-affiliates" style="display: none;">
-                <h4 style="font-size: 0.95rem; margin-bottom: 10px;">Registered Creator Affiliates</h4>
-                <div class="table-container">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>WhatsApp</th>
-                        <th>Referral Code</th>
-                        <th>Commission %</th>
-                        <th>Status</th>
-                        <th>Joined</th>
-                      </tr>
-                    </thead>
-                    <tbody id="admin-affiliates-tbody"></tbody>
-                  </table>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
+    <!-- AFFILIATE & ADMIN PORTAL MODAL -->
+    <div class="modal-overlay" id="affiliate-modal" style="display:none;">
+      <div class="modal-card">
+        <button type="button" class="modal-close" id="close-modal-btn" onclick="closeAffiliateModal()">&times;</button>
+        <div style="margin-bottom: 20px;">
+          <h2 style="font-size: 1.5rem; margin-bottom: 4px;">🤝 Affiliate &amp; Admin Portal</h2>
+          <p style="color: var(--text-muted); font-size: 0.88rem;">Creator partner dashboard &amp; store database management</p>
+        </div>
         
-    </div>
-  </div>
+        <!-- Navigation Tabs -->
+        <div class="portal-tabs">
+          <button type="button" class="portal-tab-btn active" id="tab-creator-btn" onclick="openAffiliateModal('creator')">Creator Dashboard</button>
+          <button type="button" class="portal-tab-btn" id="tab-admin-btn" onclick="openAffiliateModal('admin')">Store Admin / Database Control</button>
+        </div>
 
+        <!-- VIEW 1: REGISTRATION & LOGIN -->
+        <div id="affiliate-auth-view">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px;">
+            <h3 id="auth-title" style="font-size: 1.4rem;">Creator Registration</h3>
+            <button type="button" id="toggle-auth-btn" style="background:none; border:none; color:var(--primary); font-weight:600; cursor:pointer; font-size:0.85rem;" onclick="toggleAuthMode()">Already have an account? Log In</button>
+          </div>
+
+          <!-- Register Form -->
+          <form id="affiliate-register-form">
+            <div class="form-group">
+              <label for="aff-name">Full Name or Channel Name</label>
+              <input type="text" id="aff-name" class="form-control" placeholder="e.g. Alex Tech Reviews" required />
+            </div>
+            <div class="form-group">
+              <label for="aff-phone">Your WhatsApp Number (for Payouts)</label>
+              <input type="text" id="aff-phone" class="form-control" placeholder="e.g. +974 1234 ****" required />
+            </div>
+            <div class="form-group">
+              <label for="aff-code">Desired Referral Code</label>
+              <input type="text" id="aff-code" class="form-control" placeholder="e.g. ALEX20" required pattern="[A-Za-z0-9_-]+" title="Letters and numbers only" />
+              <small style="color: var(--text-muted); font-size: 0.8rem; margin-top: 4px; display: block;">This code will be embedded in your unique link.</small>
+            </div>
+            <div class="form-group">
+              <label for="aff-pin">Set 4-Digit Security PIN (for Logging in)</label>
+              <input type="password" id="aff-pin" class="form-control" placeholder="4-digit PIN (e.g. 1234)" maxlength="4" pattern="\d{4}" inputmode="numeric" required />
+              <small style="color: var(--text-muted); font-size: 0.8rem; margin-top: 4px; display: block;">Remember this 4-digit PIN to access your dashboard anytime.</small>
+            </div>
+            <button type="submit" class="btn-whatsapp-checkout" style="font-size: 1rem; padding: 14px;">
+              Create Account & Enter Dashboard
+            </button>
+          </form>
+
+          <!-- Login Form -->
+          <form id="affiliate-login-form" style="display: none;">
+            <div class="form-group">
+              <label for="login-code">Your Referral Code</label>
+              <input type="text" id="login-code" class="form-control" placeholder="e.g. ALEX20" required />
+            </div>
+            <div class="form-group">
+              <label for="login-pin">Your 4-Digit Security PIN</label>
+              <input type="password" id="login-pin" class="form-control" placeholder="Enter your 4-digit PIN" maxlength="4" pattern="\d{4}" inputmode="numeric" required />
+            </div>
+            <button type="submit" class="btn-whatsapp-checkout" style="font-size: 1rem; padding: 14px;">
+              Log In to Affiliate Dashboard
+            </button>
+          </form>
+        </div>
+
+        <!-- VIEW 2: LOGGED IN AFFILIATE DASHBOARD -->
+        <div id="affiliate-dash-view" style="display: none;">
+          <div class="dashboard-header">
+            <div>
+              <h3 style="font-size: 1.35rem;">Creator Affiliate Dashboard</h3>
+              <p style="color: var(--text-muted); font-size: 0.88rem;">Welcome back, <strong id="dash-user-name">Creator</strong> | Code: <strong style="color:var(--primary);" id="dash-user-code">CODE</strong></p>
+            </div>
+            <button type="button" id="logout-affiliate-btn" style="background: none; border: none; color: #EF4444; font-weight: 600; cursor: pointer; font-size: 0.85rem;" onclick="logoutAffiliate()">Logout</button>
+          </div>
+
+          <!-- Referral Link Generator & Ready-to-Share Caption Box -->
+          <div class="affiliate-link-display" style="text-align: left;">
+            <label style="font-size: 0.85rem; font-weight: 700; color: var(--dark); display: block; margin-bottom: 8px;">📢 YOUR READY-TO-SHARE PROMO POST &amp; LINK:</label>
+            
+            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; font-size: 0.92rem; line-height: 1.5; color: var(--text); margin-bottom: 12px;">
+              🚀 Get Google AI Pro (18 months package) with 5TB storage. Veo 3, Omni Flash, Nano Banana Pro, NotebookLM Pro &amp; more — all for just QAR 49 for 18 months! 🔥 Activate it on your own Google account. 👇
+              <br><br>
+              <strong>Referral Link:</strong><br>
+              <div class="affiliate-url-box" id="user-referral-link" style="margin-top: 6px; margin-bottom: 0;">https://.../?ref=CODE</div>
+            </div>
+
+            <button type="button" class="btn-copy" id="copy-ref-link-btn">📋 Copy Message &amp; Link</button>
+            <span id="copy-success-msg" style="display: none; color: #10B981; font-weight: 600; font-size: 0.85rem; margin-left: 10px;">Copied!</span>
+          </div>
+
+          <!-- Live KPI Metrics from Google Sheet -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-title">Confirmed Sales</div>
+              <div class="kpi-value" id="kpi-sales-count">0</div>
+              <span class="kpi-badge badge-blue">Verified Orders</span>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-title">Total Revenue</div>
+              <div class="kpi-value" id="kpi-total-revenue">QAR 0</div>
+              <span class="kpi-badge badge-blue">Sales Volume</span>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-title">Commission</div>
+              <div class="kpi-value" style="color: var(--primary);" id="kpi-commission-earned">QAR 0</div>
+              <span class="kpi-badge badge-green">Your Share</span>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-title">Payout Status</div>
+              <div class="kpi-value" style="font-size: 1.15rem; margin-top: 4px;" id="kpi-payout-status">Active</div>
+              <span class="kpi-badge badge-green" id="kpi-balance-due">QAR 0 Due</span>
+            </div>
+          </div>
+
+          <!-- Sales Breakdown Table -->
+          <h4 style="font-size: 1rem; margin-bottom: 12px; color: var(--dark);">Your Sales & Commission Breakdown</h4>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Order ID</th>
+                  <th>Product</th>
+                  <th>Sale Amount</th>
+                  <th>Your Commission</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="affiliate-sales-tbody"></tbody>
+            </table>
+          </div>
+
+          <!-- Request Payout Action -->
+          <button type="button" id="payout-request-btn" class="btn-whatsapp-checkout" style="background: var(--dark); font-size: 0.95rem; padding: 14px 20px;">
+            💳 Request Commission Payout via WhatsApp
+          </button>
+        </div>
+
+        <!-- VIEW 3: STORE OWNER / ADMIN DATABASE CONTROL -->
+        <div id="admin-panel-view" style="display: none;">
+          <div id="admin-login-box">
+            <h3 style="font-size: 1.3rem; margin-bottom: 8px;">Store Owner Access</h3>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px;">
+              Enter your secret admin PIN to manage website content, products, and sales records stored in your Google Sheet database.
+            </p>
+            <div class="form-group">
+              <label for="admin-pin-input">Admin PIN</label>
+              <input type="password" id="admin-pin-input" class="form-control" placeholder="Enter PIN" />
+            </div>
+            <button type="button" id="admin-submit-btn" class="btn-whatsapp-checkout" style="font-size: 0.95rem; padding: 12px;" onclick="submitAdminLogin()">Unlock Admin Dashboard</button>
+          </div>
+
+          <!-- Admin Dashboard when authenticated -->
+          <div id="admin-dashboard-box" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <h3 style="font-size: 1.3rem;">Store & Database Control Center</h3>
+              <button type="button" id="admin-lock-btn" style="background: none; border: none; color: #EF4444; font-weight: 600; cursor: pointer; font-size: 0.85rem;" onclick="lockAdminDashboard()">Lock Admin</button>
+            </div>
+
+            <!-- Admin Subnavigation Tabs -->
+            <div class="admin-subtabs">
+              <button type="button" class="admin-subtab-btn active" onclick="switchAdminTab('sales', this)">📦 Sales & Orders</button>
+              <button type="button" class="admin-subtab-btn" onclick="switchAdminTab('products', this)">🏷️ Products Content</button>
+              <button type="button" class="admin-subtab-btn" onclick="switchAdminTab('features', this)">⚡ Features / Inclusions</button>
+              <button type="button" class="admin-subtab-btn" onclick="switchAdminTab('faqs', this)">❓ FAQs Content</button>
+              <button type="button" class="admin-subtab-btn" onclick="switchAdminTab('settings', this)">⚙️ Site Settings & PIN</button>
+              <button type="button" class="admin-subtab-btn" onclick="switchAdminTab('affiliates', this)">👥 Affiliates</button>
+            </div>
+
+            <!-- SUBTAB 1: SALES & ORDERS -->
+            <div id="admin-subtab-sales">
+              <div class="admin-export-toolbar">
+                <button type="button" id="btn-export-sales" class="btn-export">📊 Download Sales Data (Spreadsheet)</button>
+                <button type="button" id="btn-export-commissions" class="btn-export">👥 Download Affiliate Payout Data (Spreadsheet)</button>
+              </div>
+              
+              <div class="admin-card-panel">
+                <h4>➕ Record Completed WhatsApp Sale</h4>
+                <form id="record-sale-form">
+                  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+                    <div class="form-group" style="margin-bottom: 10px;">
+                      <label for="sale-aff-code">Affiliate Code</label>
+                      <input type="text" id="sale-aff-code" class="form-control" placeholder="e.g. ALEX20" required />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px;">
+                      <label for="sale-customer-phone">Customer Phone Number</label>
+                      <input type="text" id="sale-customer-phone" class="form-control" placeholder="e.g. +974 1234 xxxx" required />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px;">
+                      <label for="sale-amount">Sale Amount (QAR)</label>
+                      <input type="number" id="sale-amount" class="form-control" value="49" required />
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px;">
+                      <label for="sale-rate">Commission %</label>
+                      <input type="number" id="sale-rate" class="form-control" value="20" required />
+                    </div>
+                  </div>
+                  <button type="submit" class="btn-whatsapp-checkout" style="font-size: 0.9rem; padding: 10px; margin-top: 6px;">
+                    Save Sale to Google Sheets & Update Affiliate
+                  </button>
+                </form>
+              </div>
+
+              <h4 style="font-size: 0.95rem; margin-bottom: 10px;">All Database Sales Records</h4>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Order ID</th>
+                      <th>Affiliate Code</th>
+                      <th>Customer Phone</th>
+                      <th>Amount</th>
+                      <th>Commission</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-sales-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- SUBTAB 2: PRODUCTS MANAGER -->
+            <div id="admin-subtab-products" style="display: none;">
+              <div class="admin-card-panel">
+                <h4 id="prod-form-title">➕ Add / Update Digital Product</h4>
+                <form id="admin-product-form">
+                  <input type="hidden" id="prod-id" value="" />
+                  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+                    <div class="form-group">
+                      <label for="prod-name">Product Name</label>
+                      <input type="text" id="prod-name" class="form-control" placeholder="e.g. Gemini Pro" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="prod-price">Current Price</label>
+                      <input type="number" id="prod-price" class="form-control" placeholder="49" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="prod-orig-price">Original Price</label>
+                      <input type="number" id="prod-orig-price" class="form-control" placeholder="1113" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="prod-curr">Currency</label>
+                      <input type="text" id="prod-curr" class="form-control" value="QAR" required />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="prod-tagline">Tagline / Included Specs</label>
+                    <textarea id="prod-tagline" class="form-control" placeholder="18 months Validity . Veo3 & Omni flash ..."></textarea>
+                  </div>
+                  <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
+                    <input type="checkbox" id="prod-active" checked style="width: 18px; height: 18px;" />
+                    <label for="prod-active" style="margin-bottom: 0; cursor: pointer;">Active on Website</label>
+                  </div>
+                  <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button type="submit" class="btn-whatsapp-checkout" style="font-size: 0.9rem; padding: 10px;">Save Product to Website</button>
+                    <button type="button" id="btn-cancel-edit-prod" class="btn-export" style="background:#64748B; display:none;">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <h4 style="font-size: 0.95rem; margin-bottom: 10px;">Existing Products</h4>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Current Price</th>
+                      <th>Original Price</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-products-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- SUBTAB 3: FEATURES MANAGER -->
+            <div id="admin-subtab-features" style="display: none;">
+              <div class="admin-card-panel">
+                <h4 id="feat-form-title">➕ Add / Update Feature / Inclusion Item</h4>
+                <form id="admin-feature-form">
+                  <input type="hidden" id="feat-id" value="" />
+                  <div style="display: grid; grid-template-columns: 80px 1fr 100px; gap: 12px;">
+                    <div class="form-group">
+                      <label for="feat-icon">Icon</label>
+                      <input type="text" id="feat-icon" class="form-control" placeholder="⚡" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="feat-title">Title</label>
+                      <input type="text" id="feat-title" class="form-control" placeholder="e.g. Veo 3 Video" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="feat-order">Order</label>
+                      <input type="number" id="feat-order" class="form-control" value="1" required />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="feat-desc">Description</label>
+                    <textarea id="feat-desc" class="form-control" placeholder="Detailed description of what the user receives..." required></textarea>
+                  </div>
+                  <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button type="submit" class="btn-whatsapp-checkout" style="font-size: 0.9rem; padding: 10px;">Save Feature Item</button>
+                    <button type="button" id="btn-cancel-edit-feat" class="btn-export" style="background:#64748B; display:none;">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <h4 style="font-size: 0.95rem; margin-bottom: 10px;">Current Features on Page</h4>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Order</th>
+                      <th>Icon</th>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-features-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- SUBTAB 4: FAQS MANAGER -->
+            <div id="admin-subtab-faqs" style="display: none;">
+              <div class="admin-card-panel">
+                <h4 id="faq-form-title">➕ Add / Update Frequently Asked Question</h4>
+                <form id="admin-faq-form">
+                  <input type="hidden" id="faq-id" value="" />
+                  <div style="display: grid; grid-template-columns: 1fr 100px; gap: 12px;">
+                    <div class="form-group">
+                      <label for="faq-question">Question</label>
+                      <input type="text" id="faq-question" class="form-control" placeholder="e.g. Can I use my own Gmail?" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="faq-order">Order</label>
+                      <input type="number" id="faq-order" class="form-control" value="1" required />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="faq-answer">Answer</label>
+                    <textarea id="faq-answer" class="form-control" placeholder="Clear answer to the customer's question..." required></textarea>
+                  </div>
+                  <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button type="submit" class="btn-whatsapp-checkout" style="font-size: 0.9rem; padding: 10px;">Save FAQ Item</button>
+                    <button type="button" id="btn-cancel-edit-faq" class="btn-export" style="background:#64748B; display:none;">Cancel</button>
+                  </div>
+                </form>
+              </div>
+
+              <h4 style="font-size: 0.95rem; margin-bottom: 10px;">Existing FAQs</h4>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Order</th>
+                      <th>Question</th>
+                      <th>Answer</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-faqs-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- SUBTAB 5: SETTINGS & ADMIN PIN -->
+            <div id="admin-subtab-settings" style="display: none;">
+              <div class="admin-card-panel">
+                <h4>⚙️ Website Settings & Admin Credentials (Stored in Google Sheet)</h4>
+                <form id="admin-settings-form">
+                  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+                    <div class="form-group">
+                      <label for="setting-site-name">Store Name</label>
+                      <input type="text" id="setting-site-name" class="form-control" value="AiToolsQA" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="setting-wa-phone">WhatsApp Phone Number (with Country Code)</label>
+                      <input type="text" id="setting-wa-phone" class="form-control" value="97477429956" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="setting-comm-rate">Default Commission Rate (%)</label>
+                      <input type="number" id="setting-comm-rate" class="form-control" value="20" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="setting-admin-pin">Update Admin PIN (Stored securely in Sheet)</label>
+                      <input type="password" id="setting-admin-pin" class="form-control" placeholder="New PIN (leave blank to keep current)" />
+                    </div>
+                  </div>
+                  <button type="submit" class="btn-whatsapp-checkout" style="font-size: 0.9rem; padding: 10px; margin-top: 10px;">
+                    Update Settings in Google Sheet
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <!-- SUBTAB 6: AFFILIATES LIST -->
+            <div id="admin-subtab-affiliates" style="display: none;">
+              <h4 style="font-size: 0.95rem; margin-bottom: 10px;">Registered Creator Affiliates</h4>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>WhatsApp</th>
+                      <th>Referral Code</th>
+                      <th>Commission %</th>
+                      <th>Status</th>
+                      <th>Joined</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-affiliates-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
 
     <!-- FAQs Section -->
     <section class="section" style="background: white;">
@@ -1391,14 +1359,14 @@
     </div>
   </footer>
 
-  <!-- SCRIPT: REAL-TIME SECURE GOOGLE SHEETS CONNECTOR & CMS -->
+  <!-- SCRIPT -->
   <script>
     /* ==========================================================================
        PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW:
        ========================================================================== */
     const GOOGLE_SCRIPT_API_URL = "https://script.google.com/macros/s/AKfycbzZrA0sciHebUJ7XglHNzgJ0hQQtJa0bXwRkZrTKIt9UShXUmBfWxNOZ2XqrOUgFGRB_g/exec";
 
-    // 1. SAFE STORAGE (Fallback memory so sandboxed iframes never crash)
+    // 1. SAFE STORAGE
     const safeStorage = {
       data: {},
       get: function(k) {
@@ -1428,7 +1396,7 @@
       adminData: null
     };
 
-    // 2. PORTAL VIEW SWITCHER (Instant, 100% Reliable, Scrolls Smoothly)
+    // 2. PORTAL VIEW SWITCHER
     window.openAffiliateModal = function(view = 'creator') {
       const modal = document.getElementById('affiliate-modal');
       if (modal) {
@@ -1536,7 +1504,7 @@
 
     function refreshWhatsAppLinks() {
       const url = getWhatsAppUrl();
-      document.querySelectorAll('.trigger-checkout-btn').forEach(el => {
+      document.querySelectorAll('trigger-checkout-btn').forEach(el => {
         el.setAttribute('href', url);
         el.setAttribute('target', '_top');
       });
@@ -1564,7 +1532,6 @@
           return;
         }
 
-        // If deployed on Netlify / Custom Domain: Call Google Apps Script REST API
         if (typeof GOOGLE_SCRIPT_API_URL !== 'undefined' && GOOGLE_SCRIPT_API_URL && !GOOGLE_SCRIPT_API_URL.includes("PASTE_YOUR_APPS_SCRIPT")) {
           fetch(GOOGLE_SCRIPT_API_URL, {
             method: "POST",
@@ -1580,7 +1547,6 @@
           return;
         }
 
-        // Demo / Standalone In-Memory fallback for testing
         const action = payload ? payload.action : '';
         setTimeout(() => {
           if (action === 'getPublicData') {
@@ -1834,11 +1800,18 @@
       }
     }
 
+    // COPY MESSAGE + REFERRAL LINK FUNCTION
     const copyBtn = document.getElementById('copy-ref-link-btn');
     if (copyBtn) {
       copyBtn.addEventListener('click', () => {
-        const link = document.getElementById('user-referral-link').textContent;
-        navigator.clipboard.writeText(link).then(() => {
+        const link = document.getElementById('user-referral-link').textContent.trim();
+        const fullMessage = 
+`🚀 Get Google AI Pro (18 months package) with 5TB storage. Veo 3, Omni Flash, Nano Banana Pro, NotebookLM Pro & more — all for just QAR 49 for 18 months! 🔥 Activate it on your own Google account. 👇
+
+Referral Link:
+${link}`;
+
+        navigator.clipboard.writeText(fullMessage).then(() => {
           const msg = document.getElementById('copy-success-msg');
           if (msg) {
             msg.style.display = 'inline';
@@ -1885,7 +1858,7 @@
     };
 
     window.switchAdminTab = function(target, btn) {
-      document.querySelectorAll('.admin-subtab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('admin-subtab-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
       ['sales', 'products', 'features', 'faqs', 'settings', 'affiliates'].forEach(tabName => {
         const el = document.getElementById(`admin-subtab-${tabName}`);
@@ -2281,9 +2254,9 @@
     function downloadCSV(csvContent, fileName) {
       const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.setAttribute("href", url);
-      link.setAttribute("download", fileName);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', fileName);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -2296,7 +2269,7 @@
         const sales = (APP_STATE.adminData && APP_STATE.adminData.sales) ? APP_STATE.adminData.sales : [];
         let csv = "Order ID,Date,Affiliate Code,Customer Phone,Product,Sale Amount (QAR),Commission (QAR),Status\n";
         sales.forEach(s => {
-          csv += `"${s.id}","${s.date}","${s.affCode}","${s.customerPhone || ''}","${s.product}","${s.amount}","${s.commission.toFixed(2)}","${s.status}"\n`;
+          csv += `"${s.id}","${s.date}","${s.affCode}","${s.customerPhone || '' }","${s.product}","${s.amount}","${s.commission.toFixed(2)}","${s.status}"\n`;
         });
         downloadCSV(csv, `AiToolsQA_Sales_Data_${new Date().toISOString().split('T')[0]}.csv`);
       });
