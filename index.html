@@ -1,0 +1,2321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AiToolsQA — Gemini Pro & Affiliate Portal</title>
+  <meta name="description" content="AiToolsQA: Gemini Pro. Instant WhatsApp checkout and live creator affiliate dashboard." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4F46E5;
+      --primary-hover: #4338CA;
+      --primary-light: #EEF2FF;
+      --secondary: #06B6D4;
+      --accent: #F59E0B;
+      --success: #10B981;
+      --danger: #EF4444;
+      --dark: #0F172A;
+      --dark-card: #1E293B;
+      --text: #334155;
+      --text-muted: #64748B;
+      --light-bg: #F8FAFC;
+      --white: #FFFFFF;
+      --whatsapp: #25D366;
+      --whatsapp-hover: #20BA5A;
+      --border: #E2E8F0;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --radius-full: 9999px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 10px -2px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 14px 30px -4px rgba(15, 23, 42, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--dark);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    /* Top Partner Banner */
+    #affiliate-banner {
+      display: none;
+      background: linear-gradient(90deg, #4F46E5, #06B6D4);
+      color: var(--white);
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    #affiliate-banner span {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.5px;
+    }
+
+    /* Navigation */
+    header {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 900;
+    }
+    .nav-container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--dark);
+      letter-spacing: -0.02em;
+    }
+    .brand-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #4F46E5, #06B6D4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.15rem;
+      box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-affiliate-nav {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid rgba(79, 70, 229, 0.2);
+      padding: 9px 18px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-affiliate-nav:hover {
+      background: #E0E7FF;
+      color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-whatsapp-nav {
+      background: var(--whatsapp);
+      color: white;
+      border: none;
+      padding: 9px 18px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 3px 10px rgba(37, 211, 102, 0.25);
+      text-decoration: none;
+    }
+    .btn-whatsapp-nav:hover {
+      background: var(--whatsapp-hover);
+      transform: translateY(-1px);
+      color: white;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 48px 0 32px;
+      text-align: center;
+      position: relative;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #06B6D4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Main Checkout Card */
+    .checkout-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      max-width: 620px;
+      margin: 0 auto 36px;
+      box-shadow: var(--shadow-lg);
+      text-align: left;
+      position: relative;
+    }
+    .checkout-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .product-title {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .product-tag {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .price-box {
+      text-align: right;
+      white-space: nowrap;
+      margin-left: 24px;
+    }
+    .original-price {
+      font-size: 1rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+    .current-price {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1;
+    }
+
+    .btn-whatsapp-checkout {
+      width: 100%;
+      background: var(--whatsapp);
+      color: white;
+      padding: 18px 24px;
+      border-radius: var(--radius-md);
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
+      text-decoration: none;
+    }
+    .btn-whatsapp-checkout:hover {
+      background: var(--whatsapp-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(37, 211, 102, 0.45);
+      color: white;
+    }
+    .btn-whatsapp-checkout svg {
+      width: 26px;
+      height: 26px;
+      fill: currentColor;
+    }
+
+    /* Trust Stats */
+    .trust-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 36px;
+      padding: 24px 0 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-stat {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    /* Section Styling */
+    .section { scroll-margin-top: 90px;
+      padding: 72px 0;
+    }
+    .section-title {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 48px;
+    }
+    .section-title h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      margin-bottom: 12px;
+    }
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: #CBD5E1;
+    }
+    .feature-icon {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+    .feature-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Affiliate Creator Banner */
+    .affiliate-promo-card {
+      background: linear-gradient(135deg, #1E1B4B 0%, #0F172A 100%);
+      color: white;
+      border-radius: var(--radius-lg);
+      padding: 56px 40px;
+      text-align: center;
+      margin: 64px 0;
+      position: relative;
+    }
+    .affiliate-promo-card h2 {
+      color: white;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      margin-bottom: 14px;
+    }
+    .affiliate-promo-card p {
+      color: #94A3B8;
+      max-width: 640px;
+      margin: 0 auto 28px;
+      font-size: 1.05rem;
+    }
+    .btn-create-ref {
+      background: linear-gradient(135deg, #4F46E5, #06B6D4);
+      color: white;
+      padding: 16px 32px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 1.05rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-create-ref:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(79, 70, 229, 0.5);
+      color: white;
+    }
+
+    /* DEDICATED EMBEDDED PORTAL CARD (NO MODAL, 100% RELIABLE) */
+    .portal-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      box-shadow: var(--shadow-lg);
+      margin: 0 auto;
+    }
+
+    /* Tabs */
+    .portal-tabs {
+      display: flex;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+      padding-bottom: 10px;
+    }
+    .portal-tab-btn {
+      background: none;
+      border: none;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+    .portal-tab-btn.active {
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .admin-subtabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    .admin-subtab-btn {
+      background: #F1F5F9;
+      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+    .admin-subtab-btn.active {
+      background: var(--dark);
+      color: white;
+      border-color: var(--dark);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 5px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      font-family: inherit;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    }
+    textarea.form-control {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    /* Live Affiliate Dashboard Styles */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .affiliate-link-display {
+      background: #F8FAFC;
+      border: 1px dashed #CBD5E1;
+      border-radius: var(--radius-md);
+      padding: 18px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .affiliate-url-box {
+      font-family: monospace;
+      font-size: 0.95rem;
+      background: white;
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      color: var(--primary);
+      word-break: break-all;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .btn-copy {
+      background: var(--dark);
+      color: white;
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-copy:hover {
+      background: #334155;
+    }
+
+    /* KPI Metrics Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .kpi-card {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      text-align: center;
+    }
+    .kpi-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .kpi-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--dark);
+    }
+    .kpi-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    .kpi-badge.badge-green {
+      background: #DCFCE7;
+      color: #166534;
+    }
+    .kpi-badge.badge-blue {
+      background: #DBEAFE;
+      color: #1E40AF;
+    }
+
+    /* Database Table View */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 24px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+    th {
+      background: #F8FAFC;
+      padding: 12px 14px;
+      font-weight: 600;
+      color: var(--dark);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      white-space: nowrap;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .status-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .status-confirmed {
+      background: #DCFCE7;
+      color: #166534;
+    }
+    .status-paid {
+      background: #E0E7FF;
+      color: #3730A3;
+    }
+
+    /* Action Buttons in tables */
+    .btn-action {
+      background: #EEF2FF;
+      color: var(--primary);
+      border: 1px solid #CBD5E1;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-action:hover {
+      background: #E0E7FF;
+    }
+    .btn-danger {
+      background: #FEE2E2;
+      color: var(--danger);
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-weight: 600;
+      margin-left: 4px;
+      transition: all 0.2s;
+    }
+    .btn-danger:hover {
+      background: #FECACA;
+    }
+
+    /* Export Buttons Toolbar */
+    .admin-export-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .btn-export {
+      background: #0F172A;
+      color: white;
+      border: none;
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+    .btn-export:hover {
+      background: #334155;
+    }
+
+    /* Card Panels in Admin */
+    .admin-card-panel {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .admin-card-panel h4 {
+      font-size: 1rem;
+      margin-bottom: 14px;
+      color: var(--dark);
+    }
+
+    /* FAQ */
+    .faq-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .faq-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+    .faq-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0 100px;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .admin-link {
+      color: var(--text-muted);
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.85rem;
+      margin-top: 12px;
+      display: inline-block;
+    }
+
+    /* Floating WhatsApp Button */
+    .floating-whatsapp {
+      position: fixed;
+      bottom: 80px;
+      right: 24px;
+      background: var(--whatsapp);
+      color: white;
+      padding: 14px 22px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      z-index: 800;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .floating-whatsapp:hover {
+      background: var(--whatsapp-hover);
+      transform: scale(1.05);
+      color: white;
+    }
+    .floating-whatsapp svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    /* Notification Toast */
+    #toast-msg {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--dark);
+      color: white;
+      padding: 12px 24px;
+      border-radius: var(--radius-full);
+      font-size: 0.9rem;
+      font-weight: 600;
+      z-index: 3000;
+      display: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 640px) {
+      .checkout-header {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .price-box {
+        text-align: left;
+        margin-left: 0;
+      }
+      .floating-whatsapp span {
+        display: none;
+      }
+      .floating-whatsapp {
+        padding: 16px;
+      }
+      .portal-box {
+        padding: 24px 16px;
+      }
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  
+    /* Fullscreen Modal Overlay */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 999999;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+    .modal-overlay.active {
+      display: flex !important;
+    }
+    .modal-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      max-width: 840px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 32px 28px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #F1F5F9;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .modal-close:hover {
+      background: #E2E8F0;
+      color: var(--dark);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Top Active Referral Banner -->
+  <div id="affiliate-banner">
+    🎉 Partner Offer Activated! Code <span id="banner-code">DIRECT</span> is attached to your WhatsApp order.
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <div class="brand-badge">⚡</div>
+        <span id="nav-brand-title">AiToolsQA</span>
+      </a>
+
+      <div class="nav-actions">
+        <button type="button" class="btn-affiliate-nav" id="nav-affiliate-btn" onclick="openAffiliateModal('creator')"><span>🤝 Affiliate Portal</span></button>
+        <a href="https://wa.me/97477429956?text=Hello%20AiToolsQA!%20I%20would%20like%20to%20order%20Gemini%20Pro%20(QAR%2049)." class="btn-whatsapp-nav trigger-checkout-btn" target="_top">
+          <span>Order via WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <!-- Main Product & WhatsApp Checkout Card -->
+        <div class="checkout-card">
+          <div class="checkout-header">
+            <div>
+              <h1 class="product-title"><span class="gradient-text" id="display-prod-name">Gemini Pro</span></h1>
+              <div class="product-tag" id="display-prod-tagline">18 months Validity . Veo3 & Omni flash . Nano Banana Pro . Google Flow . NotebookLM Pro . Code Assist . 5 TB Google Storage</div>
+            </div>
+            <div class="price-box">
+              <span class="original-price" id="display-orig-price">QAR 1113</span>
+              <div class="current-price" id="display-curr-price">QAR 49</div>
+            </div>
+          </div>
+
+          <!-- Checkout Trigger Button -->
+          <a href="https://wa.me/97477429956?text=Hello%20AiToolsQA!%20I%20would%20like%20to%20order%20Gemini%20Pro%20(QAR%2049)." class="btn-whatsapp-checkout trigger-checkout-btn" target="_top">
+            <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.981.536 1.771.814 2.796.814 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.766-5.768-5.766zm9.969 5.828c0 5.519-4.481 10-10 10-1.741 0-3.376-.447-4.802-1.23l-5.198 1.362 1.391-5.085c-.87-1.488-1.391-3.23-1.391-5.047 0-5.519 4.481-10 10-10 5.519 0 10 4.481 10 10z"/></svg>
+            <span>WhatsApp Checkout Now</span>
+          </a>
+
+          <!-- Trust Stats -->
+          <div class="trust-row">
+            <div class="trust-stat">⭐ 4.9/5 Rating</div>
+            <div class="trust-stat">🚀 1,200+ Sold</div>
+            <div class="trust-stat" id="display-trust-phone">💬 WhatsApp: +974 7742 9956</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Guide Curriculum / Features Grid -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title" style="max-width: 900px; width: 100%;">
+          <h2 id="features-heading">What's Included in the Gemini Pro Plan</h2>
+          <p id="features-subheading"></p>
+        </div>
+
+        <div class="features-grid" id="features-container">
+          <!-- Dynamically populated from Google Sheet database -->
+          <div class="feature-card"><span class="feature-icon">🌊</span><h3>Google Flow</h3><p>Explore AI-powered tools for creating and developing visual content.</p></div>
+          <div class="feature-card"><span class="feature-icon">🎬</span><h3>Veo 3 & Omni Flash</h3><p>Create impressive AI-generated videos from your ideas and prompts.</p></div>
+          <div class="feature-card"><span class="feature-icon">🍌</span><h3>Nano Banana Pro</h3><p>Create and edit images using advanced AI image-generation capabilities.</p></div>
+          <div class="feature-card"><span class="feature-icon">📚</span><h3>NotebookLM Pro</h3><p>Work with your documents and get AI-powered summaries, analysis and insights.</p></div>
+          <div class="feature-card"><span class="feature-icon">💻</span><h3>Code Assist</h3><p>Get AI assistance while coding and working on development projects.</p></div>
+          <div class="feature-card"><span class="feature-icon">☁️</span><h3>5 TB Google Storage</h3><p>Get Google storage for your files, photos and other content.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Affiliate Call to Action Banner -->
+    <section class="container">
+      <div class="affiliate-promo-card">
+        <h2>Are You a Content Creator or Influencer?</h2>
+        <p style="text-align: left;">
+          Recommend our digital products to your audience and earn a commission on every successful sale through your referral link.
+        </p>
+        <p style="text-align: left;">
+          Create your account in just 30 seconds, get your unique referral link, and track your sales and commissions directly from your dashboard.
+        </p>
+        <button type="button" class="btn-create-ref" id="promo-affiliate-btn" onclick="openAffiliateModal('creator')">Join as an Affiliate →</button>
+      </div>
+    </section>
+
+    <!-- DEDICATED EMBEDDED AFFILIATE & ADMIN PORTAL SECTION (100% RELIABLE ON-PAGE) -->
+    
+  <!-- AFFILIATE & ADMIN PORTAL MODAL (100% RELIABLE POPUP) -->
+  <div class="modal-overlay" id="affiliate-modal" style="display:none;">
+    <div class="modal-card">
+      <button type="button" class="modal-close" id="close-modal-btn" onclick="closeAffiliateModal()">&times;</button>
+      <div style="margin-bottom: 20px;">
+        <h2 style="font-size: 1.5rem; margin-bottom: 4px;">🤝 Affiliate &amp; Admin Portal</h2>
+        <p style="color: var(--text-muted); font-size: 0.88rem;">Creator partner dashboard &amp; store database management</p>
+      </div>
+      
+          <!-- Navigation Tabs -->
+          <div class="portal-tabs">
+            <button type="button" class="portal-tab-btn active" id="tab-creator-btn" onclick="openAffiliateModal('creator')">Creator Dashboard</button>
+            <button type="button" class="portal-tab-btn" id="tab-admin-btn" onclick="openAffiliateModal('admin')">Store Admin / Database Control</button>
+          </div>
+
+          <!-- VIEW 1: REGISTRATION & LOGIN (Logged Out State) -->
+          <div id="affiliate-auth-view">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px;">
+              <h3 id="auth-title" style="font-size: 1.4rem;">Creator Registration</h3>
+              <button type="button" id="toggle-auth-btn" style="background:none; border:none; color:var(--primary); font-weight:600; cursor:pointer; font-size:0.85rem;" onclick="toggleAuthMode()">Already have an account? Log In</button>
+            </div>
+
+            <!-- Register Form -->
+            <form id="affiliate-register-form">
+              <div class="form-group">
+                <label for="aff-name">Full Name or Channel Name</label>
+                <input type="text" id="aff-name" class="form-control" placeholder="e.g. Alex Tech Reviews" required />
+              </div>
+              <div class="form-group">
+                <label for="aff-phone">Your WhatsApp Number (for Payouts)</label>
+                <input type="text" id="aff-phone" class="form-control" placeholder="e.g. +974 1234 ****" required />
+              </div>
+              <div class="form-group">
+                <label for="aff-code">Desired Referral Code</label>
+                <input type="text" id="aff-code" class="form-control" placeholder="e.g. ALEX20" required pattern="[A-Za-z0-9_-]+" title="Letters and numbers only" />
+                <small style="color: var(--text-muted); font-size: 0.8rem; margin-top: 4px; display: block;">This code will be embedded in your unique link.</small>
+              </div>
+              <div class="form-group">
+                <label for="aff-pin">Set 4-Digit Security PIN (for Logging in)</label>
+                <input type="password" id="aff-pin" class="form-control" placeholder="4-digit PIN (e.g. 1234)" maxlength="4" pattern="\d{4}" inputmode="numeric" required />
+                <small style="color: var(--text-muted); font-size: 0.8rem; margin-top: 4px; display: block;">Remember this 4-digit PIN to access your dashboard anytime.</small>
+              </div>
+              <button type="submit" class="btn-whatsapp-checkout" style="font-size: 1rem; padding: 14px;">
+                Create Account & Enter Dashboard
+              </button>
+            </form>
+
+            <!-- Login Form -->
+            <form id="affiliate-login-form" style="display: none;">
+              <div class="form-group">
+                <label for="login-code">Your Referral Code</label>
+                <input type="text" id="login-code" class="form-control" placeholder="e.g. ALEX20" required />
+              </div>
+              <div class="form-group">
+                <label for="login-pin">Your 4-Digit Security PIN</label>
+                <input type="password" id="login-pin" class="form-control" placeholder="Enter your 4-digit PIN" maxlength="4" pattern="\d{4}" inputmode="numeric" required />
+              </div>
+              <button type="submit" class="btn-whatsapp-checkout" style="font-size: 1rem; padding: 14px;">
+                Log In to Affiliate Dashboard
+              </button>
+            </form>
+          </div>
+
+          <!-- VIEW 2: LOGGED IN AFFILIATE DASHBOARD -->
+          <div id="affiliate-dash-view" style="display: none;">
+            <div class="dashboard-header">
+              <div>
+                <h3 style="font-size: 1.35rem;">Creator Affiliate Dashboard</h3>
+                <p style="color: var(--text-muted); font-size: 0.88rem;">Welcome back, <strong id="dash-user-name">Creator</strong> | Code: <strong style="color:var(--primary);" id="dash-user-code">CODE</strong></p>
+              </div>
+              <button type="button" id="logout-affiliate-btn" style="background: none; border: none; color: #EF4444; font-weight: 600; cursor: pointer; font-size: 0.85rem;" onclick="logoutAffiliate()">Logout</button>
+            </div>
+
+            <!-- Referral Link Generator Box -->
+            <div class="affiliate-link-display">
+              <label style="font-size: 0.85rem; font-weight: 700; color: var(--dark); display: block; margin-bottom: 8px;">YOUR UNIQUE REFERRAL LINK:</label>
+              <div class="affiliate-url-box" id="user-referral-link">https://.../?ref=CODE</div>
+              <button type="button" class="btn-copy" id="copy-ref-link-btn">📋 Copy Referral Link</button>
+              <span id="copy-success-msg" style="display: none; color: #10B981; font-weight: 600; font-size: 0.85rem; margin-left: 10px;">Copied!</span>
+            </div>
+
+            <!-- Live KPI Metrics from Google Sheet -->
+            <div class="kpi-grid">
+              <div class="kpi-card">
+                <div class="kpi-title">Confirmed Sales</div>
+                <div class="kpi-value" id="kpi-sales-count">0</div>
+                <span class="kpi-badge badge-blue">Verified Orders</span>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-title">Total Revenue</div>
+                <div class="kpi-value" id="kpi-total-revenue">QAR 0</div>
+                <span class="kpi-badge badge-blue">Sales Volume</span>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-title">Commission</div>
+                <div class="kpi-value" style="color: var(--primary);" id="kpi-commission-earned">QAR 0</div>
+                <span class="kpi-badge badge-green">Your Share</span>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-title">Payout Status</div>
+                <div class="kpi-value" style="font-size: 1.15rem; margin-top: 4px;" id="kpi-payout-status">Active</div>
+                <span class="kpi-badge badge-green" id="kpi-balance-due">QAR 0 Due</span>
+              </div>
+            </div>
+
+            <!-- Sales & Commissions Breakdown Table -->
+            <h4 style="font-size: 1rem; margin-bottom: 12px; color: var(--dark);">Your Sales & Commission Breakdown</h4>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Order ID</th>
+                    <th>Product</th>
+                    <th>Sale Amount</th>
+                    <th>Your Commission</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="affiliate-sales-tbody">
+                  <!-- Dynamically populated from Google Sheet -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Request Payout Action -->
+            <button type="button" id="payout-request-btn" class="btn-whatsapp-checkout" style="background: var(--dark); font-size: 0.95rem; padding: 14px 20px;">
+              💳 Request Commission Payout via WhatsApp
+            </button>
+          </div>
+
+          <!-- VIEW 3: STORE OWNER / ADMIN DATABASE CONTROL -->
+          <div id="admin-panel-view" style="display: none;">
+            <div id="admin-login-box">
+              <h3 style="font-size: 1.3rem; margin-bottom: 8px;">Store Owner Access</h3>
+              <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px;">
+                Enter your secret admin PIN to manage website content, products, and sales records stored in your Google Sheet database.
+              </p>
+              <div class="form-group">
+                <label for="admin-pin-input">Admin PIN</label>
+                <input type="password" id="admin-pin-input" class="form-control" placeholder="Enter PIN" />
+              </div>
+              <button type="button" id="admin-submit-btn" class="btn-whatsapp-checkout" style="font-size: 0.95rem; padding: 12px;" onclick="submitAdminLogin()">Unlock Admin Dashboard</button>
+            </div>
+
+            <!-- Admin Dashboard when authenticated -->
+            <div id="admin-dashboard-box" style="display: none;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="font-size: 1.3rem;">Store & Database Control Center</h3>
+                <button type="button" id="admin-lock-btn" style="background: none; border: none; color: #EF4444; font-weight: 600; cursor: pointer; font-size: 0.85rem;" onclick="lockAdminDashboard()">Lock Admin</button>
+              </div>
+
+              <!-- Admin Subnavigation Tabs for Content & Data Management -->
+              <div class="admin-subtabs">
+                <button type="button" class="admin-subtab-btn active" onclick="switchAdminTab('sales', this)">📦 Sales & Orders</button>
+                <button type="button" class="admin-subtab-btn" onclick="switchAdminTab('products', this)">🏷️ Products Content</button>
+                <button type="button" class="admin-subtab-btn" onclick="switchAdminTab('features', this)">⚡ Features / Inclusions</button>
+                <button type="button" class="admin-subtab-btn" onclick="switchAdminTab('faqs', this)">❓ FAQs Content</button>
+                <button type="button" class="admin-subtab-btn" onclick="switchAdminTab('settings', this)">⚙️ Site Settings & PIN</button>
+                <button type="button" class="admin-subtab-btn" onclick="switchAdminTab('affiliates', this)">👥 Affiliates</button>
+              </div>
+
+              <!-- SUBTAB 1: SALES & ORDERS -->
+              <div id="admin-subtab-sales">
+                <div class="admin-export-toolbar">
+                  <button type="button" id="btn-export-sales" class="btn-export">
+                    📊 Download Sales Data (Spreadsheet)
+                  </button>
+                  <button type="button" id="btn-export-commissions" class="btn-export">
+                    👥 Download Affiliate Payout Data (Spreadsheet)
+                  </button>
+                </div>
+                
+                <div class="admin-card-panel">
+                  <h4>➕ Record Completed WhatsApp Sale</h4>
+                  <form id="record-sale-form">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+                      <div class="form-group" style="margin-bottom: 10px;">
+                        <label for="sale-aff-code">Affiliate Code</label>
+                        <input type="text" id="sale-aff-code" class="form-control" placeholder="e.g. ALEX20" required />
+                      </div>
+                      <div class="form-group" style="margin-bottom: 10px;">
+                        <label for="sale-customer-phone">Customer Phone Number</label>
+                        <input type="text" id="sale-customer-phone" class="form-control" placeholder="e.g. +974 1234 xxxx" required />
+                      </div>
+                      <div class="form-group" style="margin-bottom: 10px;">
+                        <label for="sale-amount">Sale Amount (QAR)</label>
+                        <input type="number" id="sale-amount" class="form-control" value="49" required />
+                      </div>
+                      <div class="form-group" style="margin-bottom: 10px;">
+                        <label for="sale-rate">Commission %</label>
+                        <input type="number" id="sale-rate" class="form-control" value="20" required />
+                      </div>
+                    </div>
+                    <button type="submit" class="btn-whatsapp-checkout" style="font-size: 0.9rem; padding: 10px; margin-top: 6px;">
+                      Save Sale to Google Sheets & Update Affiliate
+                    </button>
+                  </form>
+                </div>
+
+                <h4 style="font-size: 0.95rem; margin-bottom: 10px;">All Database Sales Records</h4>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Order ID</th>
+                        <th>Affiliate Code</th>
+                        <th>Customer Phone</th>
+                        <th>Amount</th>
+                        <th>Commission</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="admin-sales-tbody">
+                      <!-- Loaded from Google Sheets -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- SUBTAB 2: PRODUCTS MANAGER -->
+              <div id="admin-subtab-products" style="display: none;">
+                <div class="admin-card-panel">
+                  <h4 id="prod-form-title">➕ Add / Update Digital Product</h4>
+                  <form id="admin-product-form">
+                    <input type="hidden" id="prod-id" value="" />
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+                      <div class="form-group">
+                        <label for="prod-name">Product Name</label>
+                        <input type="text" id="prod-name" class="form-control" placeholder="e.g. Gemini Pro" required />
+                      </div>
+                      <div class="form-group">
+                        <label for="prod-price">Current Price</label>
+                        <input type="number" id="prod-price" class="form-control" placeholder="49" required />
+                      </div>
+                      <div class="form-group">
+                        <label for="prod-orig-price">Original Price</label>
+                        <input type="number" id="prod-orig-price" class="form-control" placeholder="1113" required />
+                      </div>
+                      <div class="form-group">
+                        <label for="prod-curr">Currency</label>
+                        <input type="text" id="prod-curr" class="form-control" value="QAR" required />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="prod-tagline">Tagline / Included Specs</label>
+                      <textarea id="prod-tagline" class="form-control" placeholder="18 months Validity . Veo3 & Omni flash ..."></textarea>
+                    </div>
+                    <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
+                      <input type="checkbox" id="prod-active" checked style="width: 18px; height: 18px;" />
+                      <label for="prod-active" style="margin-bottom: 0; cursor: pointer;">Active on Website</label>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                      <button type="submit" class="btn-whatsapp-checkout" style="font-size: 0.9rem; padding: 10px;">Save Product to Website</button>
+                      <button type="button" id="btn-cancel-edit-prod" class="btn-export" style="background:#64748B; display:none;">Cancel</button>
+                    </div>
+                  </form>
+                </div>
+
+                <h4 style="font-size: 0.95rem; margin-bottom: 10px;">Existing Products</h4>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Current Price</th>
+                        <th>Original Price</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="admin-products-tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- SUBTAB 3: FEATURES MANAGER -->
+              <div id="admin-subtab-features" style="display: none;">
+                <div class="admin-card-panel">
+                  <h4 id="feat-form-title">➕ Add / Update Feature / Inclusion Item</h4>
+                  <form id="admin-feature-form">
+                    <input type="hidden" id="feat-id" value="" />
+                    <div style="display: grid; grid-template-columns: 80px 1fr 100px; gap: 12px;">
+                      <div class="form-group">
+                        <label for="feat-icon">Icon</label>
+                        <input type="text" id="feat-icon" class="form-control" placeholder="⚡" required />
+                      </div>
+                      <div class="form-group">
+                        <label for="feat-title">Title</label>
+                        <input type="text" id="feat-title" class="form-control" placeholder="e.g. Veo 3 Video" required />
+                      </div>
+                      <div class="form-group">
+                        <label for="feat-order">Order</label>
+                        <input type="number" id="feat-order" class="form-control" value="1" required />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="feat-desc">Description</label>
+                      <textarea id="feat-desc" class="form-control" placeholder="Detailed description of what the user receives..." required></textarea>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                      <button type="submit" class="btn-whatsapp-checkout" style="font-size: 0.9rem; padding: 10px;">Save Feature Item</button>
+                      <button type="button" id="btn-cancel-edit-feat" class="btn-export" style="background:#64748B; display:none;">Cancel</button>
+                    </div>
+                  </form>
+                </div>
+
+                <h4 style="font-size: 0.95rem; margin-bottom: 10px;">Current Features on Page</h4>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Order</th>
+                        <th>Icon</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="admin-features-tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- SUBTAB 4: FAQS MANAGER -->
+              <div id="admin-subtab-faqs" style="display: none;">
+                <div class="admin-card-panel">
+                  <h4 id="faq-form-title">➕ Add / Update Frequently Asked Question</h4>
+                  <form id="admin-faq-form">
+                    <input type="hidden" id="faq-id" value="" />
+                    <div style="display: grid; grid-template-columns: 1fr 100px; gap: 12px;">
+                      <div class="form-group">
+                        <label for="faq-question">Question</label>
+                        <input type="text" id="faq-question" class="form-control" placeholder="e.g. Can I use my own Gmail?" required />
+                      </div>
+                      <div class="form-group">
+                        <label for="faq-order">Order</label>
+                        <input type="number" id="faq-order" class="form-control" value="1" required />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="faq-answer">Answer</label>
+                      <textarea id="faq-answer" class="form-control" placeholder="Clear answer to the customer's question..." required></textarea>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                      <button type="submit" class="btn-whatsapp-checkout" style="font-size: 0.9rem; padding: 10px;">Save FAQ Item</button>
+                      <button type="button" id="btn-cancel-edit-faq" class="btn-export" style="background:#64748B; display:none;">Cancel</button>
+                    </div>
+                  </form>
+                </div>
+
+                <h4 style="font-size: 0.95rem; margin-bottom: 10px;">Existing FAQs</h4>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Order</th>
+                        <th>Question</th>
+                        <th>Answer</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="admin-faqs-tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- SUBTAB 5: SETTINGS & ADMIN PIN -->
+              <div id="admin-subtab-settings" style="display: none;">
+                <div class="admin-card-panel">
+                  <h4>⚙️ Website Settings & Admin Credentials (Stored in Google Sheet)</h4>
+                  <form id="admin-settings-form">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+                      <div class="form-group">
+                        <label for="setting-site-name">Store Name</label>
+                        <input type="text" id="setting-site-name" class="form-control" value="AiToolsQA" required />
+                      </div>
+                      <div class="form-group">
+                        <label for="setting-wa-phone">WhatsApp Phone Number (with Country Code)</label>
+                        <input type="text" id="setting-wa-phone" class="form-control" value="97477429956" required />
+                      </div>
+                      <div class="form-group">
+                        <label for="setting-comm-rate">Default Commission Rate (%)</label>
+                        <input type="number" id="setting-comm-rate" class="form-control" value="20" required />
+                      </div>
+                      <div class="form-group">
+                        <label for="setting-admin-pin">Update Admin PIN (Stored securely in Sheet)</label>
+                        <input type="password" id="setting-admin-pin" class="form-control" placeholder="New PIN (leave blank to keep current)" />
+                      </div>
+                    </div>
+                    <button type="submit" class="btn-whatsapp-checkout" style="font-size: 0.9rem; padding: 10px; margin-top: 10px;">
+                      Update Settings in Google Sheet
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+              <!-- SUBTAB 6: AFFILIATES LIST -->
+              <div id="admin-subtab-affiliates" style="display: none;">
+                <h4 style="font-size: 0.95rem; margin-bottom: 10px;">Registered Creator Affiliates</h4>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>WhatsApp</th>
+                        <th>Referral Code</th>
+                        <th>Commission %</th>
+                        <th>Status</th>
+                        <th>Joined</th>
+                      </tr>
+                    </thead>
+                    <tbody id="admin-affiliates-tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        
+    </div>
+  </div>
+
+
+    <!-- FAQs Section -->
+    <section class="section" style="background: white;">
+      <div class="container">
+        <div class="section-title">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+
+        <div style="max-width: 760px; margin: 0 auto;" id="faq-container">
+          <div class="faq-card"><h4>How does WhatsApp checkout work?</h4><p>When you click "WhatsApp Checkout Now", your phone or browser opens WhatsApp directly with a pre-filled order message sent to our team. We confirm payment with you and immediately activate the plan on your account.</p></div>
+          <div class="faq-card"><h4>How much does it cost?</h4><p>The offer is QAR 49 one time for 18 months.</p></div>
+          <div class="faq-card"><h4>Can I use my own Gmail account?</h4><p>Yes! Gemini Pro is activated directly on your personal Google account. It is not a shared account or shared plan.</p></div>
+          <div class="faq-card"><h4>What if I have questions before ordering?</h4><p>No problem! Just message us on WhatsApp and we'll be happy to help.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Sticky Floating WhatsApp Order Button -->
+  <a href="https://wa.me/97477429956?text=Hello%20AiToolsQA!%20I%20would%20like%20to%20order%20Gemini%20Pro%20(QAR%2049)." class="floating-whatsapp trigger-checkout-btn" target="_top" aria-label="Order via WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.981.536 1.771.814 2.796.814 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.766-5.768-5.766zm9.969 5.828c0 5.519-4.481 10-10 10-1.741 0-3.376-.447-4.802-1.23l-5.198 1.362 1.391-5.085c-.87-1.488-1.391-3.23-1.391-5.047 0-5.519 4.481-10 10-10 5.519 0 10 4.481 10 10z"/></svg>
+    <span>Chat on WhatsApp</span>
+  </a>
+
+  <!-- Notification Toast -->
+  <div id="toast-msg">Notification</div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© 2026 <strong id="footer-brand-title">AiToolsQA</strong>. All rights reserved.</p>
+      <p id="footer-wa-info" style="margin-top: 6px; font-size: 0.8rem; color: #94A3B8;">WhatsApp Sales & Support: +974 7742 9956 | Doha, Qatar</p>
+      <button type="button" class="admin-link" id="footer-admin-link" onclick="openAffiliateModal('admin')" style="background:none; border:none; text-decoration:underline; cursor:pointer;">Store Admin &amp; Database Access</button>
+    </div>
+  </footer>
+
+  <!-- SCRIPT: REAL-TIME SECURE GOOGLE SHEETS CONNECTOR & CMS -->
+  <script>
+    /* ==========================================================================
+       PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW:
+       ========================================================================== */
+    const GOOGLE_SCRIPT_API_URL = "https://script.google.com/macros/s/AKfycbzZrA0sciHebUJ7XglHNzgJ0hQQtJa0bXwRkZrTKIt9UShXUmBfWxNOZ2XqrOUgFGRB_g/exec";
+
+    // 1. SAFE STORAGE (Fallback memory so sandboxed iframes never crash)
+    const safeStorage = {
+      data: {},
+      get: function(k) {
+        try { return sessionStorage.getItem(k); } catch(e) { return this.data[k] || null; }
+      },
+      set: function(k, v) {
+        try { sessionStorage.setItem(k, v); } catch(e) { this.data[k] = v; }
+      },
+      remove: function(k) {
+        try { sessionStorage.removeItem(k); } catch(e) { delete this.data[k]; }
+      }
+    };
+
+    const CONFIG = {
+      SITE_NAME: "AiToolsQA",
+      WHATSAPP_PHONE: "97477429956",
+      DEFAULT_REF: "DIRECT",
+      DEFAULT_COMMISSION_RATE: 20
+    };
+
+    let APP_STATE = {
+      adminPin: null,
+      currentAffiliate: null,
+      products: [{ id: "PROD-1", name: "Gemini Pro", tagline: "18 months Validity . Veo3 & Omni flash . Nano Banana Pro . Google Flow . NotebookLM Pro . Code Assist . 5 TB Google Storage", currentPrice: 49, originalPrice: 1113, currency: "QAR", active: true }],
+      features: [],
+      faqs: [],
+      adminData: null
+    };
+
+    // 2. PORTAL VIEW SWITCHER (Instant, 100% Reliable, Scrolls Smoothly)
+    window.openAffiliateModal = function(view = 'creator') {
+      const modal = document.getElementById('affiliate-modal');
+      if (modal) {
+        modal.classList.add('active');
+        modal.style.display = 'flex';
+      }
+      openPortalTab(view);
+    };
+
+    window.closeAffiliateModal = function() {
+      const modal = document.getElementById('affiliate-modal');
+      if (modal) {
+        modal.classList.remove('active');
+        modal.style.display = 'none';
+      }
+    };
+
+    window.openPortalTab = function(tabName) {
+      const tabCreatorBtn = document.getElementById('tab-creator-btn');
+      const tabAdminBtn = document.getElementById('tab-admin-btn');
+      const authView = document.getElementById('affiliate-auth-view');
+      const dashView = document.getElementById('affiliate-dash-view');
+      const adminView = document.getElementById('admin-panel-view');
+      const portalEl = document.getElementById('affiliate-portal');
+
+      if (tabName === 'admin') {
+        if (tabAdminBtn) tabAdminBtn.classList.add('active');
+        if (tabCreatorBtn) tabCreatorBtn.classList.remove('active');
+        if (authView) authView.style.display = 'none';
+        if (dashView) dashView.style.display = 'none';
+        if (adminView) adminView.style.display = 'block';
+      } else {
+        if (tabCreatorBtn) tabCreatorBtn.classList.add('active');
+        if (tabAdminBtn) tabAdminBtn.classList.remove('active');
+        if (adminView) adminView.style.display = 'none';
+        renderAffiliateState();
+      }
+
+      if (portalEl) {
+        portalEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+
+    window.toggleAuthMode = function() {
+      const regForm = document.getElementById('affiliate-register-form');
+      const logForm = document.getElementById('affiliate-login-form');
+      const title = document.getElementById('auth-title');
+      const btn = document.getElementById('toggle-auth-btn');
+
+      if (!regForm || !logForm) return;
+
+      if (regForm.style.display === 'none') {
+        regForm.style.display = 'block';
+        logForm.style.display = 'none';
+        if (title) title.textContent = "Creator Registration";
+        if (btn) btn.textContent = "Already have an account? Log In";
+      } else {
+        regForm.style.display = 'none';
+        logForm.style.display = 'block';
+        if (title) title.textContent = "Creator Log In";
+        if (btn) btn.textContent = "Need an account? Register";
+      }
+    };
+
+    // 3. REFERRAL & WHATSAPP URL ENGINE
+    function detectReferralCode() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        let ref = urlParams.get('ref') || urlParams.get('referral') || urlParams.get('creator');
+        if (ref && ref.trim()) {
+          ref = ref.trim().toUpperCase();
+          safeStorage.set('aitoolsqa_ref', ref);
+          return ref;
+        }
+      } catch (e) {}
+      return safeStorage.get('aitoolsqa_ref') || CONFIG.DEFAULT_REF;
+    }
+
+    const activeRefCode = detectReferralCode();
+
+    if (activeRefCode && activeRefCode !== CONFIG.DEFAULT_REF) {
+      const banner = document.getElementById('affiliate-banner');
+      const bannerCode = document.getElementById('banner-code');
+      if (banner && bannerCode) {
+        bannerCode.textContent = activeRefCode;
+        banner.style.display = 'block';
+      }
+    }
+
+    function getWhatsAppUrl() {
+      const activeProd = (APP_STATE.products && APP_STATE.products.find(p => p.active)) || {
+        name: "Gemini Pro",
+        currentPrice: 49,
+        currency: "QAR"
+      };
+
+      const message = 
+        `Hello ${CONFIG.SITE_NAME}! \n\n` +
+        `I would like to order the *${activeProd.name}* (${activeProd.currency} ${activeProd.currentPrice}).\n\n` +
+        `• Partner Code: *${activeRefCode}*\n\n` +
+        `Thank you!`;
+
+      return `https://wa.me/${CONFIG.WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+    }
+
+    function refreshWhatsAppLinks() {
+      const url = getWhatsAppUrl();
+      document.querySelectorAll('.trigger-checkout-btn').forEach(el => {
+        el.setAttribute('href', url);
+        el.setAttribute('target', '_top');
+      });
+    }
+
+    refreshWhatsAppLinks();
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast-msg');
+      if (toast) {
+        toast.textContent = msg;
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 2600);
+      }
+    }
+
+    // 4. API CALLER TO GOOGLE APPS SCRIPT BACKEND
+    function apiCall(payload) {
+      return new Promise((resolve) => {
+        if (typeof google !== 'undefined' && google.script && google.script.run) {
+          google.script.run
+            .withSuccessHandler((res) => resolve(res))
+            .withFailureHandler((err) => resolve({ success: false, message: err.message || err.toString() }))
+            .serverApi(payload);
+          return;
+        }
+
+        // If deployed on Netlify / Custom Domain: Call Google Apps Script REST API
+        if (typeof GOOGLE_SCRIPT_API_URL !== 'undefined' && GOOGLE_SCRIPT_API_URL && !GOOGLE_SCRIPT_API_URL.includes("PASTE_YOUR_APPS_SCRIPT")) {
+          fetch(GOOGLE_SCRIPT_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify(payload)
+          })
+          .then(res => res.json())
+          .then(data => resolve(data))
+          .catch(err => {
+            console.error("Netlify API Fetch Error:", err);
+            resolve({ success: false, message: "Backend connection error. Please try again." });
+          });
+          return;
+        }
+
+        // Demo / Standalone In-Memory fallback for testing
+        const action = payload ? payload.action : '';
+        setTimeout(() => {
+          if (action === 'getPublicData') {
+            resolve({
+              success: true,
+              settings: CONFIG,
+              products: APP_STATE.products,
+              features: APP_STATE.features,
+              faqs: APP_STATE.faqs
+            });
+          } else if (action === 'affiliateRegister') {
+            const user = {
+              code: payload.code,
+              name: payload.name,
+              phone: payload.phone,
+              salesCount: 0,
+              totalRevenue: 0,
+              commissionEarned: 0
+            };
+            safeStorage.set('user_' + payload.code, JSON.stringify(user));
+            safeStorage.set('pin_' + payload.code, payload.pin);
+            resolve({ success: true, user: user });
+          } else if (action === 'affiliateLogin') {
+            const savedPin = safeStorage.get('pin_' + payload.code);
+            const userStr = safeStorage.get('user_' + payload.code);
+            if (!savedPin || !userStr) {
+              resolve({ success: false, message: "Account not found. Please register first." });
+              return;
+            }
+            if (savedPin !== payload.pin) {
+              resolve({ success: false, message: "Invalid 4-digit PIN." });
+              return;
+            }
+            resolve({ success: true, user: JSON.parse(userStr) });
+          } else if (action === 'adminLogin') {
+            if (payload.pin === '2026') {
+              resolve({ success: true, message: "Authenticated" });
+            } else {
+              resolve({ success: false, message: "Invalid Admin PIN. (Default: 2026)" });
+            }
+          } else if (action === 'getAdminData') {
+            resolve({
+              success: true,
+              products: APP_STATE.products,
+              features: APP_STATE.features,
+              faqs: APP_STATE.faqs,
+              affiliates: [],
+              sales: [],
+              settings: CONFIG
+            });
+          } else {
+            resolve({ success: true });
+          }
+        }, 150);
+      });
+    }
+
+    // 5. LOAD PUBLIC CMS DATA
+    async function loadPublicData() {
+      try {
+        const res = await apiCall({ action: 'getPublicData' });
+        if (res && res.success) {
+          if (res.settings) {
+            CONFIG.SITE_NAME = res.settings.SITE_NAME || CONFIG.SITE_NAME;
+            CONFIG.WHATSAPP_PHONE = res.settings.WHATSAPP_PHONE || CONFIG.WHATSAPP_PHONE;
+            CONFIG.DEFAULT_REF = res.settings.DEFAULT_REF || CONFIG.DEFAULT_REF;
+            
+            const brandTitle = document.getElementById('nav-brand-title');
+            if (brandTitle) brandTitle.textContent = CONFIG.SITE_NAME;
+            const footBrand = document.getElementById('footer-brand-title');
+            if (footBrand) footBrand.textContent = CONFIG.SITE_NAME;
+            const trustPhone = document.getElementById('display-trust-phone');
+            if (trustPhone) trustPhone.textContent = `💬 WhatsApp: +${CONFIG.WHATSAPP_PHONE}`;
+            const footWa = document.getElementById('footer-wa-info');
+            if (footWa) footWa.textContent = `WhatsApp Sales & Support: +${CONFIG.WHATSAPP_PHONE} | Doha, Qatar`;
+          }
+
+          if (res.products && res.products.length > 0) {
+            APP_STATE.products = res.products;
+            const activeProd = res.products.find(p => p.active) || res.products[0];
+            const pName = document.getElementById('display-prod-name');
+            if (pName) pName.textContent = activeProd.name;
+            const pTag = document.getElementById('display-prod-tagline');
+            if (pTag) pTag.textContent = activeProd.tagline;
+            const pCurr = document.getElementById('display-curr-price');
+            if (pCurr) pCurr.textContent = `${activeProd.currency} ${activeProd.currentPrice}`;
+            const pOrig = document.getElementById('display-orig-price');
+            if (pOrig) pOrig.textContent = `${activeProd.currency} ${activeProd.originalPrice}`;
+          }
+
+          if (res.features && res.features.length > 0) {
+            APP_STATE.features = res.features;
+            const featContainer = document.getElementById('features-container');
+            if (featContainer) {
+              featContainer.innerHTML = '';
+              res.features.forEach(f => {
+                const card = document.createElement('div');
+                card.className = 'feature-card';
+                card.innerHTML = `<span class="feature-icon">${f.icon}</span><h3>${f.title}</h3><p>${f.description}</p>`;
+                featContainer.appendChild(card);
+              });
+            }
+          }
+
+          if (res.faqs && res.faqs.length > 0) {
+            APP_STATE.faqs = res.faqs;
+            const faqContainer = document.getElementById('faq-container');
+            if (faqContainer) {
+              faqContainer.innerHTML = '';
+              res.faqs.forEach(q => {
+                const fCard = document.createElement('div');
+                fCard.className = 'faq-card';
+                fCard.innerHTML = `<h4>${q.question}</h4><p>${q.answer}</p>`;
+                faqContainer.appendChild(fCard);
+              });
+            }
+          }
+
+          refreshWhatsAppLinks();
+        }
+      } catch (err) {
+        console.warn("Public data load:", err);
+      }
+    }
+
+    loadPublicData();
+
+    // 6. AFFILIATE REGISTRATION & LOGIN
+    const registerForm = document.getElementById('affiliate-register-form');
+    const loginForm = document.getElementById('affiliate-login-form');
+
+    if (registerForm) {
+      registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('aff-name').value.trim();
+        const phone = document.getElementById('aff-phone').value.trim();
+        const code = document.getElementById('aff-code').value.trim().toUpperCase();
+        const pin = document.getElementById('aff-pin').value.trim();
+
+        if (!/^\d{4}$/.test(pin)) {
+          alert("Please set a valid 4-digit numeric PIN.");
+          return;
+        }
+
+        showToast("Registering creator...");
+        const res = await apiCall({ action: 'affiliateRegister', name, phone, code, pin });
+
+        if (res && res.success) {
+          APP_STATE.currentAffiliate = res.user;
+          safeStorage.set('aitoolsqa_aff_user', JSON.stringify(res.user));
+          safeStorage.set('aitoolsqa_aff_pin', pin);
+          renderAffiliateState();
+          showToast("Account created successfully!");
+        } else {
+          alert(res ? res.message : "Registration failed.");
+        }
+      });
+    }
+
+    if (loginForm) {
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const code = document.getElementById('login-code').value.trim().toUpperCase();
+        const pin = document.getElementById('login-pin').value.trim();
+
+        showToast("Logging in...");
+        const res = await apiCall({ action: 'affiliateLogin', code, pin });
+
+        if (res && res.success) {
+          APP_STATE.currentAffiliate = res.user;
+          safeStorage.set('aitoolsqa_aff_user', JSON.stringify(res.user));
+          safeStorage.set('aitoolsqa_aff_pin', pin);
+          renderAffiliateDashboard(res);
+        } else {
+          alert(res ? res.message : "Login failed. Check your Code and PIN.");
+        }
+      });
+    }
+
+    async function renderAffiliateState() {
+      const authView = document.getElementById('affiliate-auth-view');
+      const dashView = document.getElementById('affiliate-dash-view');
+      const stored = safeStorage.get('aitoolsqa_aff_user');
+      const pin = safeStorage.get('aitoolsqa_aff_pin');
+
+      if (stored && pin) {
+        try {
+          const u = JSON.parse(stored);
+          const res = await apiCall({ action: 'affiliateLogin', code: u.code, pin: pin });
+          if (res && res.success) {
+            renderAffiliateDashboard(res);
+            return;
+          }
+        } catch(e) {}
+      }
+      if (authView) authView.style.display = 'block';
+      if (dashView) dashView.style.display = 'none';
+    }
+
+    function renderAffiliateDashboard(res) {
+      const authView = document.getElementById('affiliate-auth-view');
+      const dashView = document.getElementById('affiliate-dash-view');
+      if (authView) authView.style.display = 'none';
+      if (dashView) dashView.style.display = 'block';
+
+      const user = res.user;
+      document.getElementById('dash-user-name').textContent = user.name;
+      document.getElementById('dash-user-code').textContent = user.code;
+
+      const originUrl = window.location.origin + window.location.pathname;
+      const link = `${originUrl}?ref=${user.code}`;
+      document.getElementById('user-referral-link').textContent = link;
+
+      const stats = res.stats || { salesCount: 0, totalRevenue: 0, commissionEarned: 0, balanceDue: 0, payoutStatus: "Active" };
+      document.getElementById('kpi-sales-count').textContent = stats.salesCount;
+      document.getElementById('kpi-total-revenue').textContent = `QAR ${stats.totalRevenue}`;
+      document.getElementById('kpi-commission-earned').textContent = `QAR ${stats.commissionEarned.toFixed(2)}`;
+      document.getElementById('kpi-balance-due').textContent = `QAR ${stats.balanceDue.toFixed(2)} Due`;
+      document.getElementById('kpi-payout-status').textContent = stats.payoutStatus;
+
+      const tbody = document.getElementById('affiliate-sales-tbody');
+      if (tbody) {
+        tbody.innerHTML = '';
+        if (!res.sales || res.sales.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:24px;">No sales recorded yet. Share your referral link to earn commissions!</td></tr>`;
+        } else {
+          res.sales.forEach(s => {
+            const badgeClass = (s.status === "Paid") ? "status-paid" : "status-confirmed";
+            tbody.innerHTML += `
+              <tr>
+                <td>${s.date}</td>
+                <td><strong>${s.id}</strong></td>
+                <td>${s.product}</td>
+                <td>QAR ${s.amount}</td>
+                <td style="color:var(--primary); font-weight:700;">QAR ${s.commission.toFixed(2)}</td>
+                <td><span class="status-tag ${badgeClass}">${s.status}</span></td>
+              </tr>
+            `;
+          });
+        }
+      }
+
+      const payoutBtn = document.getElementById('payout-request-btn');
+      if (payoutBtn) {
+        payoutBtn.onclick = () => {
+          const msg = `Hello ${CONFIG.SITE_NAME}! 👋\n\nI am requesting a commission payout for my creator account.\n• Creator Name: ${user.name}\n• Affiliate Code: ${user.code}\n• Verified Sales: ${stats.salesCount}\n• Balance Due: QAR ${stats.balanceDue.toFixed(2)}\n\nPlease process to my WhatsApp number: ${user.phone}. Thank you!`;
+          const pUrl = `https://wa.me/${CONFIG.WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`;
+          if (window.top && window.top !== window) window.top.location.href = pUrl;
+          else window.location.href = pUrl;
+        };
+      }
+    }
+
+    const copyBtn = document.getElementById('copy-ref-link-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const link = document.getElementById('user-referral-link').textContent;
+        navigator.clipboard.writeText(link).then(() => {
+          const msg = document.getElementById('copy-success-msg');
+          if (msg) {
+            msg.style.display = 'inline';
+            setTimeout(() => { msg.style.display = 'none'; }, 2000);
+          }
+        });
+      });
+    }
+
+    window.logoutAffiliate = function() {
+      safeStorage.remove('aitoolsqa_aff_user');
+      safeStorage.remove('aitoolsqa_aff_pin');
+      APP_STATE.currentAffiliate = null;
+      renderAffiliateState();
+    };
+
+    // 7. STORE ADMIN DASHBOARD & DATABASE CMS
+    window.submitAdminLogin = async function() {
+      const pinInput = document.getElementById('admin-pin-input');
+      const pin = pinInput ? pinInput.value.trim() : '';
+      if (!pin) {
+        alert("Please enter your Admin PIN.");
+        return;
+      }
+
+      showToast("Authenticating admin against Google Sheets...");
+      const res = await apiCall({ action: 'adminLogin', pin: pin });
+      if (res && res.success) {
+        APP_STATE.adminPin = pin;
+        document.getElementById('admin-login-box').style.display = 'none';
+        document.getElementById('admin-dashboard-box').style.display = 'block';
+        loadAdminFullData();
+      } else {
+        alert(res ? res.message : "Incorrect Admin PIN.");
+      }
+    };
+
+    window.lockAdminDashboard = function() {
+      APP_STATE.adminPin = null;
+      const pinInput = document.getElementById('admin-pin-input');
+      if (pinInput) pinInput.value = '';
+      document.getElementById('admin-login-box').style.display = 'block';
+      document.getElementById('admin-dashboard-box').style.display = 'none';
+    };
+
+    window.switchAdminTab = function(target, btn) {
+      document.querySelectorAll('.admin-subtab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      ['sales', 'products', 'features', 'faqs', 'settings', 'affiliates'].forEach(tabName => {
+        const el = document.getElementById(`admin-subtab-${tabName}`);
+        if (el) el.style.display = (tabName === target) ? 'block' : 'none';
+      });
+    };
+
+    async function loadAdminFullData() {
+      if (!APP_STATE.adminPin) return;
+      const res = await apiCall({ action: 'getAdminData', pin: APP_STATE.adminPin });
+      if (res && res.success) {
+        APP_STATE.adminData = res;
+        renderAdminSales(res.sales);
+        renderAdminProducts(res.products);
+        renderAdminFeatures(res.features);
+        renderAdminFAQs(res.faqs);
+        renderAdminSettings(res.settings);
+        renderAdminAffiliates(res.affiliates);
+      }
+    }
+
+    function renderAdminSales(sales) {
+      const tbody = document.getElementById('admin-sales-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      if (!sales || sales.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:16px;">No sales in Google Sheets.</td></tr>`;
+        return;
+      }
+      sales.forEach(s => {
+        const badgeClass = (s.status === "Paid") ? "status-paid" : "status-confirmed";
+        tbody.innerHTML += `
+          <tr>
+            <td>${s.date}</td>
+            <td><strong>${s.id}</strong></td>
+            <td><strong style="color:var(--primary);">${s.affCode}</strong></td>
+            <td>${s.customerPhone || 'N/A'}</td>
+            <td>QAR ${s.amount}</td>
+            <td>QAR ${s.commission.toFixed(2)}</td>
+            <td><span class="status-tag ${badgeClass}">${s.status}</span></td>
+            <td>
+              <button type="button" class="btn-action" onclick="adminToggleStatus('${s.id}')">Toggle Paid</button>
+              <button type="button" class="btn-danger" onclick="adminDeleteSale('${s.id}')">✕</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    window.adminToggleStatus = async function(saleId) {
+      const res = await apiCall({ action: 'toggleSaleStatus', pin: APP_STATE.adminPin, saleId: saleId });
+      if (res && res.success) { loadAdminFullData(); } else { alert(res ? res.message : "Error"); }
+    };
+
+    window.adminDeleteSale = async function(saleId) {
+      if (confirm("Delete this sale record from Google Sheets?")) {
+        const res = await apiCall({ action: 'deleteSale', pin: APP_STATE.adminPin, saleId: saleId });
+        if (res && res.success) { loadAdminFullData(); } else { alert(res ? res.message : "Error"); }
+      }
+    };
+
+    const recordForm = document.getElementById('record-sale-form');
+    if (recordForm) {
+      recordForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const affCode = document.getElementById('sale-aff-code').value.trim();
+        const customerPhone = document.getElementById('sale-customer-phone').value.trim();
+        const amount = document.getElementById('sale-amount').value;
+        const rate = document.getElementById('sale-rate').value;
+
+        showToast("Saving sale to Google Sheets...");
+        const res = await apiCall({
+          action: 'recordSale',
+          pin: APP_STATE.adminPin,
+          sale: { affCode, customerPhone, amount, rate, product: "Gemini Pro" }
+        });
+
+        if (res && res.success) {
+          showToast("Sale saved to Google Sheets!");
+          document.getElementById('sale-aff-code').value = '';
+          document.getElementById('sale-customer-phone').value = '';
+          loadAdminFullData();
+        } else {
+          alert(res ? res.message : "Failed to record sale.");
+        }
+      });
+    }
+
+    function renderAdminProducts(products) {
+      const tbody = document.getElementById('admin-products-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      if (!products || products.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:16px;">No products found.</td></tr>`;
+        return;
+      }
+      products.forEach(p => {
+        tbody.innerHTML += `
+          <tr>
+            <td><strong>${p.id}</strong></td>
+            <td>${p.name}</td>
+            <td>${p.currency} ${p.currentPrice}</td>
+            <td>${p.currency} ${p.originalPrice}</td>
+            <td>${p.active ? '<span class="status-tag status-confirmed">Active</span>' : '<span class="status-tag" style="background:#F1F5F9; color:#64748B;">Inactive</span>'}</td>
+            <td>
+              <button type="button" class="btn-action" onclick="adminEditProduct('${p.id}')">Edit</button>
+              <button type="button" class="btn-danger" onclick="adminDeleteProduct('${p.id}')">Delete</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    window.adminEditProduct = function(id) {
+      const p = APP_STATE.adminData.products.find(x => x.id === id);
+      if (p) {
+        document.getElementById('prod-form-title').textContent = "✏️ Edit Product: " + p.name;
+        document.getElementById('prod-id').value = p.id;
+        document.getElementById('prod-name').value = p.name;
+        document.getElementById('prod-price').value = p.currentPrice;
+        document.getElementById('prod-orig-price').value = p.originalPrice;
+        document.getElementById('prod-curr').value = p.currency;
+        document.getElementById('prod-tagline').value = p.tagline;
+        document.getElementById('prod-active').checked = p.active;
+        document.getElementById('btn-cancel-edit-prod').style.display = 'inline-block';
+      }
+    };
+
+    const cancelProdBtn = document.getElementById('btn-cancel-edit-prod');
+    if (cancelProdBtn) {
+      cancelProdBtn.addEventListener('click', () => {
+        document.getElementById('prod-form-title').textContent = "➕ Add / Update Digital Product";
+        document.getElementById('admin-product-form').reset();
+        document.getElementById('prod-id').value = '';
+        cancelProdBtn.style.display = 'none';
+      });
+    }
+
+    const prodForm = document.getElementById('admin-product-form');
+    if (prodForm) {
+      prodForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const prod = {
+          id: document.getElementById('prod-id').value.trim(),
+          name: document.getElementById('prod-name').value.trim(),
+          currentPrice: document.getElementById('prod-price').value,
+          originalPrice: document.getElementById('prod-orig-price').value,
+          currency: document.getElementById('prod-curr').value.trim(),
+          tagline: document.getElementById('prod-tagline').value.trim(),
+          active: document.getElementById('prod-active').checked
+        };
+
+        showToast("Saving product to Google Sheet...");
+        const res = await apiCall({ action: 'saveProduct', pin: APP_STATE.adminPin, product: prod });
+        if (res && res.success) {
+          showToast("Product saved successfully!");
+          document.getElementById('btn-cancel-edit-prod').click();
+          loadAdminFullData();
+          loadPublicData();
+        } else {
+          alert(res ? res.message : "Error saving product.");
+        }
+      });
+    }
+
+    window.adminDeleteProduct = async function(id) {
+      if (confirm("Delete this product from Google Sheets?")) {
+        const res = await apiCall({ action: 'deleteProduct', pin: APP_STATE.adminPin, productId: id });
+        if (res && res.success) { loadAdminFullData(); loadPublicData(); } else { alert(res ? res.message : "Error"); }
+      }
+    };
+
+    function renderAdminFeatures(features) {
+      const tbody = document.getElementById('admin-features-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      if (!features || features.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding:16px;">No features found.</td></tr>`;
+        return;
+      }
+      features.forEach(f => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${f.displayOrder}</td>
+            <td style="font-size:1.3rem;">${f.icon}</td>
+            <td><strong>${f.title}</strong></td>
+            <td style="max-width:300px; overflow:hidden; text-overflow:ellipsis;">${f.description}</td>
+            <td>
+              <button type="button" class="btn-action" onclick="adminEditFeature('${f.id}')">Edit</button>
+              <button type="button" class="btn-danger" onclick="adminDeleteFeature('${f.id}')">Delete</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    window.adminEditFeature = function(id) {
+      const f = APP_STATE.adminData.features.find(x => x.id === id);
+      if (f) {
+        document.getElementById('feat-form-title').textContent = "✏️ Edit Feature: " + f.title;
+        document.getElementById('feat-id').value = f.id;
+        document.getElementById('feat-icon').value = f.icon;
+        document.getElementById('feat-title').value = f.title;
+        document.getElementById('feat-order').value = f.displayOrder;
+        document.getElementById('feat-desc').value = f.description;
+        document.getElementById('btn-cancel-edit-feat').style.display = 'inline-block';
+      }
+    };
+
+    const cancelFeatBtn = document.getElementById('btn-cancel-edit-feat');
+    if (cancelFeatBtn) {
+      cancelFeatBtn.addEventListener('click', () => {
+        document.getElementById('feat-form-title').textContent = "➕ Add / Update Feature / Inclusion Item";
+        document.getElementById('admin-feature-form').reset();
+        document.getElementById('feat-id').value = '';
+        cancelFeatBtn.style.display = 'none';
+      });
+    }
+
+    const featForm = document.getElementById('admin-feature-form');
+    if (featForm) {
+      featForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const feat = {
+          id: document.getElementById('feat-id').value.trim(),
+          icon: document.getElementById('feat-icon').value.trim(),
+          title: document.getElementById('feat-title').value.trim(),
+          displayOrder: document.getElementById('feat-order').value,
+          description: document.getElementById('feat-desc').value.trim()
+        };
+
+        showToast("Saving feature to Google Sheet...");
+        const res = await apiCall({ action: 'saveFeature', pin: APP_STATE.adminPin, feature: feat });
+        if (res && res.success) {
+          showToast("Feature saved!");
+          document.getElementById('btn-cancel-edit-feat').click();
+          loadAdminFullData();
+          loadPublicData();
+        } else {
+          alert(res ? res.message : "Error saving feature.");
+        }
+      });
+    }
+
+    window.adminDeleteFeature = async function(id) {
+      if (confirm("Delete this feature item from Google Sheets?")) {
+        const res = await apiCall({ action: 'deleteFeature', pin: APP_STATE.adminPin, featureId: id });
+        if (res && res.success) { loadAdminFullData(); loadPublicData(); } else { alert(res ? res.message : "Error"); }
+      }
+    };
+
+    function renderAdminFAQs(faqs) {
+      const tbody = document.getElementById('admin-faqs-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      if (!faqs || faqs.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--text-muted); padding:16px;">No FAQs found.</td></tr>`;
+        return;
+      }
+      faqs.forEach(q => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${q.displayOrder}</td>
+            <td><strong>${q.question}</strong></td>
+            <td style="max-width:320px; overflow:hidden; text-overflow:ellipsis;">${q.answer}</td>
+            <td>
+              <button type="button" class="btn-action" onclick="adminEditFAQ('${q.id}')">Edit</button>
+              <button type="button" class="btn-danger" onclick="adminDeleteFAQ('${q.id}')">Delete</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    window.adminEditFAQ = function(id) {
+      const q = APP_STATE.adminData.faqs.find(x => x.id === id);
+      if (q) {
+        document.getElementById('faq-form-title').textContent = "✏️ Edit FAQ";
+        document.getElementById('faq-id').value = q.id;
+        document.getElementById('faq-question').value = q.question;
+        document.getElementById('faq-order').value = q.displayOrder;
+        document.getElementById('faq-answer').value = q.answer;
+        document.getElementById('btn-cancel-edit-faq').style.display = 'inline-block';
+      }
+    };
+
+    const cancelFaqBtn = document.getElementById('btn-cancel-edit-faq');
+    if (cancelFaqBtn) {
+      cancelFaqBtn.addEventListener('click', () => {
+        document.getElementById('faq-form-title').textContent = "➕ Add / Update Frequently Asked Question";
+        document.getElementById('admin-faq-form').reset();
+        document.getElementById('faq-id').value = '';
+        cancelFaqBtn.style.display = 'none';
+      });
+    }
+
+    const faqForm = document.getElementById('admin-faq-form');
+    if (faqForm) {
+      faqForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const faq = {
+          id: document.getElementById('faq-id').value.trim(),
+          question: document.getElementById('faq-question').value.trim(),
+          displayOrder: document.getElementById('faq-order').value,
+          answer: document.getElementById('faq-answer').value.trim()
+        };
+
+        showToast("Saving FAQ to Google Sheet...");
+        const res = await apiCall({ action: 'saveFAQ', pin: APP_STATE.adminPin, faq: faq });
+        if (res && res.success) {
+          showToast("FAQ saved!");
+          document.getElementById('btn-cancel-edit-faq').click();
+          loadAdminFullData();
+          loadPublicData();
+        } else {
+          alert(res ? res.message : "Error saving FAQ.");
+        }
+      });
+    }
+
+    window.adminDeleteFAQ = async function(id) {
+      if (confirm("Delete this FAQ from Google Sheets?")) {
+        const res = await apiCall({ action: 'deleteFAQ', pin: APP_STATE.adminPin, faqId: id });
+        if (res && res.success) { loadAdminFullData(); loadPublicData(); } else { alert(res ? res.message : "Error"); }
+      }
+    };
+
+    function renderAdminSettings(settings) {
+      if (!settings) return;
+      if (Array.isArray(settings)) {
+        settings.forEach(s => {
+          if (s.key === 'SITE_NAME') { const el = document.getElementById('setting-site-name'); if (el) el.value = s.value; }
+          if (s.key === 'WHATSAPP_PHONE') { const el = document.getElementById('setting-wa-phone'); if (el) el.value = s.value; }
+          if (s.key === 'DEFAULT_COMMISSION_RATE') { const el = document.getElementById('setting-comm-rate'); if (el) el.value = s.value; }
+        });
+      } else if (typeof settings === 'object') {
+        if (settings.SITE_NAME) { const el = document.getElementById('setting-site-name'); if (el) el.value = settings.SITE_NAME; }
+        if (settings.WHATSAPP_PHONE) { const el = document.getElementById('setting-wa-phone'); if (el) el.value = settings.WHATSAPP_PHONE; }
+        if (settings.DEFAULT_COMMISSION_RATE) { const el = document.getElementById('setting-comm-rate'); if (el) el.value = settings.DEFAULT_COMMISSION_RATE; }
+      }
+    }
+
+    const settingsForm = document.getElementById('admin-settings-form');
+    if (settingsForm) {
+      settingsForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const updated = {
+          SITE_NAME: document.getElementById('setting-site-name').value.trim(),
+          WHATSAPP_PHONE: document.getElementById('setting-wa-phone').value.trim(),
+          DEFAULT_COMMISSION_RATE: document.getElementById('setting-comm-rate').value
+        };
+
+        const newPin = document.getElementById('setting-admin-pin').value.trim();
+        if (newPin) updated['ADMIN_PIN'] = newPin;
+
+        showToast("Updating settings in Google Sheet...");
+        const res = await apiCall({ action: 'updateSettings', pin: APP_STATE.adminPin, settings: updated });
+        if (res && res.success) {
+          if (newPin) APP_STATE.adminPin = newPin;
+          document.getElementById('setting-admin-pin').value = '';
+          showToast("Settings updated successfully!");
+          loadAdminFullData();
+          loadPublicData();
+        } else {
+          alert(res ? res.message : "Failed to update settings.");
+        }
+      });
+    }
+
+    function renderAdminAffiliates(affiliates) {
+      const tbody = document.getElementById('admin-affiliates-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      if (!affiliates || affiliates.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding:16px;">No registered affiliates.</td></tr>`;
+        return;
+      }
+      affiliates.forEach(a => {
+        tbody.innerHTML += `
+          <tr>
+            <td><strong>${a.id}</strong></td>
+            <td>${a.name}</td>
+            <td>${a.whatsapp}</td>
+            <td><strong style="color:var(--primary);">${a.code}</strong></td>
+            <td>${a.rate}%</td>
+            <td><span class="status-tag status-confirmed">${a.status}</span></td>
+            <td>${a.createdAt}</td>
+          </tr>
+        `;
+      });
+    }
+
+    function downloadCSV(csvContent, fileName) {
+      const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    const expSalesBtn = document.getElementById('btn-export-sales');
+    if (expSalesBtn) {
+      expSalesBtn.addEventListener('click', () => {
+        const sales = (APP_STATE.adminData && APP_STATE.adminData.sales) ? APP_STATE.adminData.sales : [];
+        let csv = "Order ID,Date,Affiliate Code,Customer Phone,Product,Sale Amount (QAR),Commission (QAR),Status\n";
+        sales.forEach(s => {
+          csv += `"${s.id}","${s.date}","${s.affCode}","${s.customerPhone || ''}","${s.product}","${s.amount}","${s.commission.toFixed(2)}","${s.status}"\n`;
+        });
+        downloadCSV(csv, `AiToolsQA_Sales_Data_${new Date().toISOString().split('T')[0]}.csv`);
+      });
+    }
+
+    const expCommBtn = document.getElementById('btn-export-commissions');
+    if (expCommBtn) {
+      expCommBtn.addEventListener('click', () => {
+        const affiliates = (APP_STATE.adminData && APP_STATE.adminData.affiliates) ? APP_STATE.adminData.affiliates : [];
+        const sales = (APP_STATE.adminData && APP_STATE.adminData.sales) ? APP_STATE.adminData.sales : [];
+        let csv = "Affiliate Name,Phone Number,Referral Code,Total Confirmed Sales,Total Revenue (QAR),Total Commission (QAR),Balance Due (QAR),Payout Status\n";
+        
+        affiliates.forEach(a => {
+          const aSales = sales.filter(s => s.affCode.toUpperCase() === a.code.toUpperCase());
+          const totalRev = aSales.reduce((acc, s) => acc + s.amount, 0);
+          const totalComm = aSales.reduce((acc, s) => acc + s.commission, 0);
+          const unpaidComm = aSales.filter(s => s.status !== "Paid").reduce((acc, s) => acc + s.commission, 0);
+          const payoutStatus = unpaidComm > 0 ? "Pending" : "Settled";
+          csv += `"${a.name}","${a.whatsapp}","${a.code}","${aSales.length}","${totalRev}","${totalComm.toFixed(2)}","${unpaidComm.toFixed(2)}","${payoutStatus}"\n`;
+        });
+        downloadCSV(csv, `AiToolsQA_Commission_Payouts_${new Date().toISOString().split('T')[0]}.csv`);
+      });
+    }
+  </script>
+</body>
+</html>
